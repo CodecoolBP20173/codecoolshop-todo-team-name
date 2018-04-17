@@ -25,6 +25,10 @@ public class ProductController extends HttpServlet {
 
 
 
+    //context.setVariables(params);
+
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -37,10 +41,10 @@ public class ProductController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        //context.setVariables(params);
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
+        context.setVariable("size", ShoppingCart.getSize()+ " item(s) in cart");
         engine.process("product/index.html", context, resp.getWriter());
     }
 
