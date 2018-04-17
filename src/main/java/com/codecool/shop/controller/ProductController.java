@@ -5,7 +5,6 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.ShoppingCart;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -15,13 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
     ProductDao productDataStore = ProductDaoMem.getInstance();
     ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+
+
+    //context.setVariables(params);
 
 
 
@@ -37,10 +38,10 @@ public class ProductController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        //context.setVariables(params);
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
+        context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
         engine.process("product/index.html", context, resp.getWriter());
     }
 
@@ -51,7 +52,10 @@ public class ProductController extends HttpServlet {
         Integer id = Integer.valueOf(request.getParameter("id"));
         if("add".equals(action)){
             ShoppingCart.add(productDataStore.find(id));
-            System.out.println(ShoppingCart.getAll());
+        } else if ("remove".equals(action)) {
+            ShoppingCart.remove(productDataStore.find(id));
+        } else if ("delete".equals(action)) {
+            ShoppingCart.delete(productDataStore.find(id));
         } else {
             super.doPost(request, response);
         }
