@@ -71,12 +71,12 @@ public class ShoppingCart extends HttpServlet {
         return num;
     }
 
-    public static double sumOfPrices() {
+    public static String sumOfPrices() {
         double sum = 0;
         for (int i = 0; i < cartProducts.size(); i++) {
             sum += cartProducts.get(i).getDefaultPrice() * cartProducts.get(i).getQuantity();
         }
-        return sum;
+        return sum + " USD";
     }
 
 
@@ -94,8 +94,8 @@ public class ShoppingCart extends HttpServlet {
 //        context.setVariables(params);
         context.setVariable("recipient", "World");
         context.setVariable("products", this.getAll());
-        context.setVariable("itemNum", this.getProductNum() + " item(s) in cart");
-        context.setVariable("sum", this.sumOfPrices() + "USD");
+        context.setVariable("itemNum", this.getProductNum());
+        context.setVariable("sum", this.sumOfPrices());
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }

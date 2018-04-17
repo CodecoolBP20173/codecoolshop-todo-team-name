@@ -45,6 +45,8 @@
             req.send();
             location.reload();
         }
+
+
     </script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
@@ -61,7 +63,7 @@
             <a href="/cart">
                 <img id="cart" src="/static/img/cart.png" alt="">
             </a>
-            <div th:text="${itemNum}"> item(s) in cart</div>
+            <div><span th:text="${itemNum}"></span> item(s) in cart</div>
         </div>
     </div>
 </div>
@@ -70,12 +72,22 @@
     <ul class="list-group" th:each="prod,iterStat : ${products}">
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <span th:text="${prod.getName()}"></span>
-            <a th:onclick="'javascript:deleteItem(' + ${prod.getId()} + ')'" href="#" class="badge badge-primary badge-pill">Remove this item</a>
-            <a th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" href="#" class="badge badge-primary badge-pill">+</a>
-            <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#" class="badge badge-primary badge-pill">-</a>
+            <span id="price"><strong><span th:text="${prod.getSubtotal()}"></span> (<span
+                    th:text="${prod.getQuantity()}"></span>x<span th:text="${prod.getPrice()}"></span>)</strong></span>
+            <a th:onclick="'javascript:deleteItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">Remove this item</a>
+            <a th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">+</a>
+            <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">-</a>
             <span class="badge badge-primary badge-pill" th:text="${prod.getQuantity()}"></span>
         </li>
     </ul>
+</div>
+
+<div class="container">
+    <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
+    <a href="#" class="btn btn-success" role="button">Proceed to Checkout</a>
 </div>
 
 </body>
