@@ -8,6 +8,7 @@ import java.util.List;
 public class ShoppingCart {
 
     private static List<Product> cartProducts = new ArrayList<>();
+    public static List<String> checkoutList = new ArrayList<>();
 
     public static List<Product> getAll(){
         return cartProducts;
