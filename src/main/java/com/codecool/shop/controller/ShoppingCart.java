@@ -1,5 +1,7 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 
 import java.util.ArrayList;
@@ -72,12 +74,17 @@ public class ShoppingCart extends HttpServlet {
         return num;
     }
 
-    public static String sumOfPrices() {
+    public static String getSumOfPrices() {
+        return sumOfPrices() + " USD";
+    }
+
+
+    public static double sumOfPrices() {
         double sum = 0;
         for (int i = 0; i < cartProducts.size(); i++) {
             sum += cartProducts.get(i).getDefaultPrice() * cartProducts.get(i).getQuantity();
         }
-        return sum + " USD";
+        return sum;
     }
 
 
@@ -96,7 +103,7 @@ public class ShoppingCart extends HttpServlet {
         context.setVariable("recipient", "World");
         context.setVariable("products", this.getAll());
         context.setVariable("itemNum", this.getProductNum());
-        context.setVariable("sum", this.sumOfPrices());
+        context.setVariable("sum", this.getSumOfPrices());
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }
