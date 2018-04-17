@@ -33,15 +33,16 @@
     <h1>Codecool Shop</h1>
 </div>
 
-<div class="container">
+<div class="container" th:each="cat,iterStat : ${category}">
     <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:text="${cat.name}">Category Title</strong>
     </div>
+
 
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="thumbnail">
+            <div class="thumbnail" th:if="${prod.getProductCategory().id} == ${cat.id}">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
