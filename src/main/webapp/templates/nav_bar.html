@@ -18,8 +18,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <div th:each="cat : ${category}">
-                                <li><a href="#" th:text="${cat.name}">Category</a></li>
+                            <div th:each="cat : ${categories}">
+                                <li><a href="/" th:href="@{/filter(type=category, id=${cat.id})}" th:text="${cat.name}">Category</a></li>
                             </div>
                         </ul>
                     </li>
@@ -30,7 +30,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <div th:each="supplier : ${suppliers}">
-                                <li><a href="#" th:text="${supplier.name}"></a></li>
+                                <li><a href="/" th:href="@{/filter(type=supplier, id=${supplier.id})}" th:text="${supplier.name}"></a></li>
                             </div>
                         </ul>
                     </li>
