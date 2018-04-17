@@ -28,22 +28,53 @@ public class ShoppingCart extends HttpServlet {
     }
 
     public static void add(Product product) {
-        //product.setId(cartProducts.size() + 1);
-        cartProducts.add(product);
+        boolean addProduct = true;
+        for (Product cartProduct : cartProducts) {
+            if (cartProduct.getId() == product.getId()) {
+                cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+                addProduct = false;
+                break;
+            }
+        }
+        if (addProduct) {
+            cartProducts.add(product);
+        }
+    }
+
+    public static void remove (Product product) {
+        for (Product cartProduct : cartProducts) {
+            if (cartProduct.getId() == product.getId() && cartProduct.getQuantity() > 1) {
+                cartProduct.setQuantity(cartProduct.getQuantity() - 1);
+                break;
+            }
+            if (cartProduct.getId() == product.getId() && cartProduct.getQuantity() == 1) {
+                cartProducts.remove(cartProduct);
+            }
+        }
+    }
+
+    public static void delete (Product product) {
+        cartProducts.remove(product);
     }
 
     public static List<Product> getAll() {
         return cartProducts;
     }
 
-    public static int getSize() {
-        return cartProducts.size();
+    public static int getProductNum() {
+        int num = 0;
+        for (Product cartProduct: cartProducts) {
+            num += cartProduct.getQuantity();
+
+        }
+
+        return num;
     }
 
     public static double sumOfPrices() {
         double sum = 0;
         for (int i = 0; i < cartProducts.size(); i++) {
-            sum+= cartProducts.get(i).getDefaultPrice();
+            sum += cartProducts.get(i).getDefaultPrice() * cartProducts.get(i).getQuantity();
         }
         return sum;
     }
@@ -63,8 +94,8 @@ public class ShoppingCart extends HttpServlet {
 //        context.setVariables(params);
         context.setVariable("recipient", "World");
         context.setVariable("products", this.getAll());
-        context.setVariable("size", this.getSize()+ " item(s) in cart");
-        context.setVariable("sum", this.sumOfPrices());
+        context.setVariable("itemNum", this.getProductNum() + " item(s) in cart");
+        context.setVariable("sum", this.sumOfPrices() + "USD");
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }

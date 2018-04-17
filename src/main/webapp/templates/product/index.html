@@ -29,6 +29,7 @@
             var req = new XMLHttpRequest();
             req.open('POST', '/?action=add&id=' + id);
             req.send();
+            location.reload();
         }
     </script>
 
@@ -46,7 +47,7 @@
             <a href="/cart">
                 <img id="cart" src="/static/img/cart.png" alt="">
             </a>
-            <div th:text="${size}"></div>
+            <div th:text="${itemNum}"></div>
         </div>
     </div>
 </div>

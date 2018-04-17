@@ -44,7 +44,7 @@ public class ProductController extends HttpServlet {
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
-        context.setVariable("size", ShoppingCart.getSize()+ " item(s) in cart");
+        context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
         engine.process("product/index.html", context, resp.getWriter());
     }
 
@@ -55,7 +55,10 @@ public class ProductController extends HttpServlet {
         Integer id = Integer.valueOf(request.getParameter("id"));
         if("add".equals(action)){
             ShoppingCart.add(productDataStore.find(id));
-            System.out.println(ShoppingCart.getAll());
+        } else if ("remove".equals(action)) {
+            ShoppingCart.remove(productDataStore.find(id));
+        } else if ("delete".equals(action)) {
+            ShoppingCart.delete(productDataStore.find(id));
         } else {
             super.doPost(request, response);
         }
