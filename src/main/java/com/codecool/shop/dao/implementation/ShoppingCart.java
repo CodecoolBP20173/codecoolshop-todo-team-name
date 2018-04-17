@@ -22,6 +22,7 @@ import java.io.IOException;
 public class ShoppingCart extends HttpServlet {
 
     private static List<Product> cartProducts = new ArrayList<>();
+    public static List<String> checkoutList = new ArrayList<>();
 
     private static Product getById(Integer id) {
         return cartProducts.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
