@@ -18,7 +18,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="">1</a></li>
+                            <div th:each="cat : ${category}">
+                                <li><a href="#" th:text="${cat.name}">Category</a></li>
+                            </div>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -27,7 +29,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="">2</a></li>
+                            <div th:each="supplier : ${suppliers}">
+                                <li><a href="#" th:text="${supplier.name}"></a></li>
+                            </div>
                         </ul>
                     </li>
                 </ul>
