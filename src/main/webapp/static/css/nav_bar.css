@@ -1,11 +1,12 @@
-.bg-color {
-    background-color: #449b45 !important;
-}
-
-.navbar-brand {
-    color: white !important;
-}
+.nav-bg-color {
+     background-color: #eee !important;
+ }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.jumbotron {
+    margin-bottom: 0 !important;
 }
