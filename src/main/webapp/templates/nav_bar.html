@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="header">
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Navbar</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Categories
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div th:each="cat : ${categories}">
+                                <li><a href="/" th:href="@{/filter(type=category, id=${cat.id})}" th:text="${cat.name}">Category</a></li>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Suppliers
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <div th:each="supplier : ${suppliers}">
+                                <li><a href="/" th:href="@{/filter(type=supplier, id=${supplier.id})}" th:text="${supplier.name}"></a></li>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+</body>
+</html>
