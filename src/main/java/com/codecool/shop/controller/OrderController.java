@@ -25,7 +25,6 @@ import java.io.IOException;
 public class OrderController extends HttpServlet {
 
     OrderDao cartProducts = OrderDaoMem.getInstance();
-    public static List<String> checkoutList = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
