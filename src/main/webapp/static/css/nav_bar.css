@@ -1,8 +1,8 @@
 .nav-bg-color {
-     background-color: #eee !important;
- }
+    background-color: #eee !important;
+}
 
-a {
+.drop-li-a {
     text-decoration: none !important;
     color: black !important;
 }
