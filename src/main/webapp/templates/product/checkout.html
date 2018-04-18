@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <title>Codecool Shop</title>
 
@@ -13,18 +13,20 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script src="/static/js/checkout.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -34,46 +36,59 @@
     <h1>Checkout Information</h1>
 </div>
 <div class="container">
-<form action='/checkout' method="POST">
-    <h1 id="fill_checkout">Fill the following form with your information please</h1>
-    <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" name="name" placeholder="e.g.: John Smith" id="name" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Email address:</label>
-        <input type="email" name="email" placeholder="e.g.: john.smith@gmail.com" id="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="something@domain.xx or something@domain.xxx" required>
-    </div>
-    <div class="form-group">
-        <label for="telephone">Phone number:</label>
-        <input type="text" name="telephone" placeholder="e.g.: 36301234567" pattern="[0-9]{11}" title="11 number after each other like: 36301234567" id="telephone" class="form-control" required>
-    </div>
-    <label for="billing">Billing address:</label>
-    <div class="form-inline" id="billing" align="center">
-        <label for="billcountry">Country:</label>
-        <input type="text" name="billcountry" placeholder="e.g.: Hungary" id="billcountry" class="form-control" required>
-        <label for="billcity">City:</label>
-        <input type="text" name="billcity" placeholder="e.g.: Nyergesujfalu" id="billcity" class="form-control" required>
-        <label for="billzipcode">Zipcode:</label>
-        <input type="text" name="billzipcode" placeholder="e.g.: 2536" pattern="[0-9]{4}" id="billzipcode" class="form-control" required>
-        <label for="billaddress">Address:</label>
-        <input type="text" name="billaddress" placeholder="e.g.: Random Street 420" id="billaddress" class="form-control" required>
-    </div>
-    <label for="shipping">Shipping address:</label>
-    <div class="form-inline" id="shipping" align="center">
-        <label for="shipcountry">Country:</label>
-        <input type="text" name="shipcountry" placeholder="e.g.: Hungary" id="shipcountry" class="form-control" required>
-        <label for="shipcity">City:</label>
-        <input type="text" name="shipcity" placeholder="e.g.: Nyergesujfalu" id="shipcity" class="form-control" required>
-        <label for="shipzipcode">Zipcode:</label>
-        <input type="text" name="shipzipcode" placeholder="e.g.: 2536" pattern="[0-9]{4}" id="shipzipcode" class="form-control" required>
-        <label for="shipaddress">Address:</label>
-        <input type="text" name="shipaddress" placeholder="e.g.: Random Street 420" id="shipaddress" class="form-control" required>
-    </div>
-
-    <a href="/payment" class="btn btn-success" role="button">Proceed to Payment</a>
-
-</form>
+    <form action='/checkout' method="POST">
+        <h1 id="fill_checkout">Fill the following form with your information please</h1>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" placeholder="e.g.: John Smith" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" name="email" placeholder="e.g.: john.smith@gmail.com" id="email" class="form-control"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="something@domain.xx or something@domain.xxx"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="telephone">Phone number:</label>
+            <input type="text" name="telephone" placeholder="e.g.: 36301234567" pattern="[0-9]{11}"
+                   title="11 number after each other like: 36301234567" id="telephone" class="form-control" required>
+        </div>
+        <label for="billing">Billing address:</label>
+        <div class="form-inline" id="billing">
+            <label for="billcountry">Country:</label>
+            <input type="text" name="billcountry" placeholder="e.g.: Hungary" id="billcountry" class="form-control"
+                   required>
+            <label for="billcity">City:</label>
+            <input type="text" name="billcity" placeholder="e.g.: Nyergesujfalu" id="billcity" class="form-control"
+                   required>
+            <label for="billzipcode">Zipcode:</label>
+            <input type="text" name="billzipcode" placeholder="e.g.: 2536" pattern="[0-9]{4}" id="billzipcode"
+                   class="form-control" required>
+            <label for="billaddress">Address:</label>
+            <input type="text" name="billaddress" placeholder="e.g.: Random Street 420" id="billaddress"
+                   class="form-control" required>
+        </div>
+        <button type="button" id="copy_button" th:onclick="'javascript:copy()'" class="btn btn-xs btn-default"><span
+                class="glyphicon glyphicon-arrow-down"></span>Copy billing address <span
+                class="glyphicon glyphicon-arrow-down"></span></button>
+        <label id='shipping_label' for="shipping">Shipping address:</label>
+        <div class="form-inline" id="shipping">
+            <label for="shipcountry">Country:</label>
+            <input type="text" name="shipcountry" placeholder="e.g.: Hungary" id="shipcountry" class="form-control"
+                   required>
+            <label for="shipcity">City:</label>
+            <input type="text" name="shipcity" placeholder="e.g.: Nyergesujfalu" id="shipcity" class="form-control"
+                   required>
+            <label for="shipzipcode">Zipcode:</label>
+            <input type="text" name="shipzipcode" placeholder="e.g.: 2536" pattern="[0-9]{4}" id="shipzipcode"
+                   class="form-control" required>
+            <label for="shipaddress">Address:</label>
+            <input type="text" name="shipaddress" placeholder="e.g.: Random Street 420" id="shipaddress"
+                   class="form-control" required>
+        </div>
+        <input type="submit" value="Proceed to payment" name="button" class="btn btn-success" role="button"
+               id="checkout_button">
+    </form>
 </div>
 
 <div th:replace="footer.html :: copy"></div>
