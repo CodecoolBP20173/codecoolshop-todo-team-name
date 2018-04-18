@@ -24,16 +24,10 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script>
-        function addItem(id){
-            var req = new XMLHttpRequest();
-            req.open('POST', '/?action=add&id=' + id);
-            req.send();
-            location.reload();
-        }
-    </script>
+    <script src="/static/js/shopping.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css" />
 </head>
 
 <body>
@@ -47,16 +41,17 @@
             <a href="/cart">
                 <img id="cart" src="/static/img/cart.png" alt="">
             </a>
-            <div th:text="${itemNum}"></div>
+            <div><span th:text="${itemNum}"></span> product(s) in cart</div>
         </div>
     </div>
 </div>
+
+<div th:replace="nav_bar.html :: header"></div>
 
 <div class="container" th:each="cat,iterStat : ${category}">
     <div class="well well-sm">
         <strong th:text="${cat.name}">Category Title</strong>
     </div>
-
 
     <div id="products" class="row list-group">
 
