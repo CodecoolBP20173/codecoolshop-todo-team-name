@@ -1,7 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -19,11 +21,10 @@ import java.io.IOException;
 public class ProductController extends HttpServlet {
     ProductDao productDataStore = ProductDaoMem.getInstance();
     ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-
+    OrderDao cartProducts = OrderDaoMem.getInstance();
 
 
     //context.setVariables(params);
-
 
 
     @Override
@@ -41,7 +42,7 @@ public class ProductController extends HttpServlet {
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
-        context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
+        context.setVariable("itemNum", cartProducts.getProductNum());
         engine.process("product/index.html", context, resp.getWriter());
     }
 
@@ -50,12 +51,12 @@ public class ProductController extends HttpServlet {
 
         String action = request.getParameter("action");
         Integer id = Integer.valueOf(request.getParameter("id"));
-        if("add".equals(action)){
-            ShoppingCart.add(productDataStore.find(id));
+        if ("add".equals(action)) {
+            cartProducts.add(productDataStore.find(id));
         } else if ("remove".equals(action)) {
-            ShoppingCart.remove(productDataStore.find(id));
+            cartProducts.remove(productDataStore.find(id));
         } else if ("delete".equals(action)) {
-            ShoppingCart.delete(productDataStore.find(id));
+            cartProducts.delete(productDataStore.find(id));
         } else {
             super.doPost(request, response);
         }
