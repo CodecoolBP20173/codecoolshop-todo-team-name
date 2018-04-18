@@ -68,3 +68,16 @@
 #price {
     padding-left: 15px;
 }
+
+#fill_checkout {
+    text-align: center;
+}
+
+#shipping, #billing {
+    text-align: center;
+    margin: 10px;
+}
+
+#checkout_button {
+    margin: 20px;
+}
