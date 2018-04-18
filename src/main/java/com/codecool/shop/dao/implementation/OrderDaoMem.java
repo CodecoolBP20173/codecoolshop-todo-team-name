@@ -8,8 +8,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
-
 public class OrderDaoMem implements OrderDao {
 
     private List<Product> cartProducts = new ArrayList<>();
