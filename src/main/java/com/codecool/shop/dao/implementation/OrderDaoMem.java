@@ -64,7 +64,11 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public int getProductNum() {
-        return cartProducts.size();
+        int sum = 0;
+        for (Product product:cartProducts) {
+            sum += product.getQuantity();
+        }
+        return sum;
     }
 
     @Override
