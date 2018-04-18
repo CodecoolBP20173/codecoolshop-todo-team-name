@@ -25,12 +25,12 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+    ProductDao productDataStore = ProductDaoMem.getInstance();
+    ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+    SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
         /*Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
@@ -48,7 +48,6 @@ public class ProductController extends HttpServlet {
 
             context.setVariable("category", productCategoryDataStore.getAll());
             context.setVariable("products", productDataStore.getAll());
-            context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
 
         } else if ("category".equals(type)) {
 
@@ -61,6 +60,7 @@ public class ProductController extends HttpServlet {
             context.setVariable("category", categories);
             context.setVariable("products", productDataStore.getBy(category));
         }
+        context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
