@@ -1,61 +1,15 @@
-body { margin:50px auto;}
-
-/* CSS for Credit Card Payment form
-
-.container{
-    align-items: center;
-}
-
-.container1{
-    width: 1400px;
-}
-
-.container2{
-    width: 1400px;
-}
-*/
-
-
-
-.credit-card-box .panel-title {
-    display: inline;
-    font-weight: bold;
-}
-.credit-card-box .form-control.error {
-    border-color: red;
-    outline: 0;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
-}
-.credit-card-box label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px 8px;
-    margin-top: 2px;
-}
-.credit-card-box .payment-errors {
-    font-weight: bold;
-    color: red;
-    padding: 2px 8px;
-    margin-top: 2px;
-}
-.credit-card-box label {
+.paypal-img {
     display: block;
+    max-width: 230px;
+    max-height: 95px;
+    width: auto;
+    height: auto;
 }
-/* The old "center div vertically" hack */
-.credit-card-box .display-table {
-    }
 
-.credit-card-box .display-tr {
-    display: table-row;
+.col-sm-3, .col-sm-9 {
+    height: 420px !important;
 }
-.credit-card-box .display-td {
-    display: table-cell;
-    vertical-align: middle;
-    width: 50%;
-}
-/* Just looks nicer */
-.credit-card-box .panel-heading img {
-    min-width: 180px;
-    max-width: 70%;
-    max-height: 70%;
+
+.pimg {
+    padding-top: 210px;
 }
