@@ -23,29 +23,29 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String name = request.getParameter("name");
-    String email = request.getParameter("email");
-    String phoneNumber = request.getParameter("telephone");
-    String billCountry = request.getParameter("billcountry");
-    String billCity = request.getParameter("billcity");
-    String billZipcode = request.getParameter("billzipcode");
-    String billAddress = request.getParameter("billaddress");
-    String shipCountry = request.getParameter("shipcountry");
-    String shipCity = request.getParameter("shipcity");
-    String shipZipcode = request.getParameter("shipzipcode");
-    String shipAddress = request.getParameter("shipaddress");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("telephone");
+        String billCountry = request.getParameter("billcountry");
+        String billCity = request.getParameter("billcity");
+        String billZipcode = request.getParameter("billzipcode");
+        String billAddress = request.getParameter("billaddress");
+        String shipCountry = request.getParameter("shipcountry");
+        String shipCity = request.getParameter("shipcity");
+        String shipZipcode = request.getParameter("shipzipcode");
+        String shipAddress = request.getParameter("shipaddress");
 
-    ShoppingCart.checkoutList.add(name);
-    ShoppingCart.checkoutList.add(email);
-    ShoppingCart.checkoutList.add(phoneNumber);
-    ShoppingCart.checkoutList.add(billCountry);
-    ShoppingCart.checkoutList.add(billCity);
-    ShoppingCart.checkoutList.add(billZipcode);
-    ShoppingCart.checkoutList.add(billAddress);
-    ShoppingCart.checkoutList.add(shipCountry);
-    ShoppingCart.checkoutList.add(shipCity);
-    ShoppingCart.checkoutList.add(shipZipcode);
-    ShoppingCart.checkoutList.add(shipAddress);
+        OrderController.checkoutList.add(name);
+        OrderController.checkoutList.add(email);
+        OrderController.checkoutList.add(phoneNumber);
+        OrderController.checkoutList.add(billCountry);
+        OrderController.checkoutList.add(billCity);
+        OrderController.checkoutList.add(billZipcode);
+        OrderController.checkoutList.add(billAddress);
+        OrderController.checkoutList.add(shipCountry);
+        OrderController.checkoutList.add(shipCity);
+        OrderController.checkoutList.add(shipZipcode);
+        OrderController.checkoutList.add(shipAddress);
 
     }
 }
