@@ -5,8 +5,8 @@
 </head>
 <body>
 <div th:fragment="header">
-    <div class="container">
-        <nav class="navbar navbar-inverse">
+    <div class="">
+        <nav class="navbar nav-bg-color">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">Home</a>
             </div>
@@ -18,10 +18,10 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <div th:each="cat : ${categories}">
-                                <li><a href="/" th:href="@{/filter(type=category, id=${cat.id})}" th:text="${cat.name}">Category</a>
-                                </li>
-                            </div>
+                            <li th:each="cat : ${categories}"><a href="/"
+                                                                 th:href="@{/filter(type=category, id=${cat.id})}"
+                                                                 th:text="${cat.name}">Category</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown" th:unless="${suppliers} == null">
@@ -30,10 +30,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <div th:each="supplier : ${suppliers}">
-                                <li><a href="/" th:href="@{/filter(type=supplier, id=${supplier.id})}"
-                                       th:text="${supplier.name}"></a></li>
-                            </div>
+                            <li th:each="supplier : ${suppliers}"><a href="/"
+                                                                     th:href="@{/filter(type=supplier, id=${supplier.id})}"
+                                                                     th:text="${supplier.name}"></a></li>
                         </ul>
                     </li>
                 </ul>
