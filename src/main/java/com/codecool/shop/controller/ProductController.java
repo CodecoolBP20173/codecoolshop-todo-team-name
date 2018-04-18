@@ -48,6 +48,7 @@ public class ProductController extends HttpServlet {
 
             context.setVariable("category", productCategoryDataStore.getAll());
             context.setVariable("products", productDataStore.getAll());
+            context.setVariable("itemNum", ShoppingCart.getProductNum()+ " item(s) in cart");
 
         } else if ("category".equals(type)) {
 
@@ -63,5 +64,21 @@ public class ProductController extends HttpServlet {
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String action = request.getParameter("action");
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        if("add".equals(action)){
+            ShoppingCart.add(productDataStore.find(id));
+        } else if ("remove".equals(action)) {
+            ShoppingCart.remove(productDataStore.find(id));
+        } else if ("delete".equals(action)) {
+            ShoppingCart.delete(productDataStore.find(id));
+        } else {
+            super.doPost(request, response);
+        }
     }
 }

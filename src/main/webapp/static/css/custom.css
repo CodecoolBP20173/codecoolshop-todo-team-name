@@ -60,3 +60,11 @@
 {
     margin: 0 0 11px;
 }
+
+#cart {
+    width: 15%;
+}
+
+#price {
+    padding-left: 15px;
+}

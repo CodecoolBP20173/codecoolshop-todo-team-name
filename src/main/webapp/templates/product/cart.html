@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
@@ -31,60 +31,64 @@
             req.send();
             location.reload();
         }
+
+        function removeItem(id){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/?action=remove&id=' + id);
+            req.send();
+            location.reload();
+        }
+
+        function deleteItem(id){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/?action=delete&id=' + id);
+            req.send();
+            location.reload();
+        }
+
+
     </script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
-
 <body>
 
 <div class="jumbotron text-center">
     <div class="container">
         <div class="col-sm-6">
-            <h1>Codecool Shop</h1>
+            <a href="/"><h1>Codecool Shop</h1></a>
+            <h2>Shopping Cart</h2>
         </div>
         <div class="col-sm-6">
             <a href="/cart">
                 <img id="cart" src="/static/img/cart.png" alt="">
             </a>
-            <div th:text="${itemNum}"></div>
+            <div><span th:text="${itemNum}"></span> item(s) in cart</div>
         </div>
     </div>
 </div>
 
-<div th:replace="nav_bar.html :: header"></div>
-
-<div class="container" th:each="cat,iterStat : ${category}">
-    <div class="well well-sm">
-        <strong th:text="${cat.name}">Category Title</strong>
-    </div>
-
-    <div id="products" class="row list-group">
-
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="thumbnail" th:if="${prod.getProductCategory().id} == ${cat.id}">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product
-                        description... </p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <button th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" class="btn btn-success" href="#">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<div class="container">
+    <ul class="list-group" th:each="prod,iterStat : ${products}">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span th:text="${prod.getName()}"></span>
+            <span id="price"><strong><span th:text="${prod.getSubtotal()}"></span> (<span
+                    th:text="${prod.getQuantity()}"></span>x<span th:text="${prod.getPrice()}"></span>)</strong></span>
+            <a th:onclick="'javascript:deleteItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">Remove this item</a>
+            <a th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">+</a>
+            <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#"
+               class="badge badge-primary badge-pill">-</a>
+            <span class="badge badge-primary badge-pill" th:text="${prod.getQuantity()}"></span>
+        </li>
+    </ul>
 </div>
 
-<div th:replace="footer.html :: copy"></div>
+<div class="container">
+    <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
+    <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
+</div>
 
 </body>
 </html>
