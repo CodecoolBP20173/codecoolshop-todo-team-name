@@ -34,6 +34,7 @@
     </script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css" />
 </head>
 
 <body>
@@ -52,11 +53,12 @@
     </div>
 </div>
 
+<div th:replace="nav_bar.html :: header"></div>
+
 <div class="container" th:each="cat,iterStat : ${category}">
     <div class="well well-sm">
         <strong th:text="${cat.name}">Category Title</strong>
     </div>
-
 
     <div id="products" class="row list-group">
 
