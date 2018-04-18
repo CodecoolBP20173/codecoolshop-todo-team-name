@@ -1,7 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -26,6 +28,12 @@ public class ProductController extends HttpServlet {
 
     ProductDao productDataStore = ProductDaoMem.getInstance();
     ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+    OrderDao cartProducts = OrderDaoMem.getInstance();
+
+
+    //context.setVariables(params);
+
+
     SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
     @Override
@@ -38,7 +46,10 @@ public class ProductController extends HttpServlet {
 
         setContent(req, context, type);
         context.setVariable("recipient", "World");
-        context.setVariable("itemNum", ShoppingCart.getProductNum() + " item(s) in cart");
+        context.setVariable("category", productCategoryDataStore.getAll());
+        context.setVariable("products", productDataStore.getAll());
+        context.setVariable("itemNum", cartProducts.getProductNum());
+        context.setVariable("itemNum", cartProducts.getProductNum());
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
@@ -51,11 +62,11 @@ public class ProductController extends HttpServlet {
         String action = request.getParameter("action");
         Integer id = Integer.valueOf(request.getParameter("id"));
         if ("add".equals(action)) {
-            ShoppingCart.add(productDataStore.find(id));
+            cartProducts.add(productDataStore.find(id));
         } else if ("remove".equals(action)) {
-            ShoppingCart.remove(productDataStore.find(id));
+            cartProducts.remove(productDataStore.find(id));
         } else if ("delete".equals(action)) {
-            ShoppingCart.delete(productDataStore.find(id));
+            cartProducts.delete(productDataStore.find(id));
         } else {
             super.doPost(request, response);
         }

@@ -24,30 +24,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script>
-        function addItem(id){
-            var req = new XMLHttpRequest();
-            req.open('POST', '/?action=add&id=' + id);
-            req.send();
-            location.reload();
-        }
-
-        function removeItem(id){
-            var req = new XMLHttpRequest();
-            req.open('POST', '/?action=remove&id=' + id);
-            req.send();
-            location.reload();
-        }
-
-        function deleteItem(id){
-            var req = new XMLHttpRequest();
-            req.open('POST', '/?action=delete&id=' + id);
-            req.send();
-            location.reload();
-        }
-
-
-    </script>
+    <script src="/static/js/shopping.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
@@ -63,7 +40,7 @@
             <a href="/cart">
                 <img id="cart" src="/static/img/cart.png" alt="">
             </a>
-            <div><span th:text="${itemNum}"></span> item(s) in cart</div>
+            <div><span th:text="${itemNum}"></span> product(s) in cart</div>
         </div>
     </div>
 </div>
