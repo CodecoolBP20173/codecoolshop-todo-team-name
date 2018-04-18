@@ -40,6 +40,18 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="cart-icon">
+                            <a href="/cart">
+                                <img id="cart" src="/static/img/cart.png" alt="">
+                            </a>
+                        </div>
+                        <div class="cart-text">
+                            <span th:text="${itemNum}"></span> product(s) in cart
+                        </div>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
