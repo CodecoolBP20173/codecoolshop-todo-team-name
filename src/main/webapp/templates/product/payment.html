@@ -36,9 +36,9 @@
     <h1>Checkout Information</h1>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <!--Credit Card Payment-->
-    <div id="paying-card" class="col-sm-9">
+    <div id="paying-card" class="col-sm-6">
         <h1>Credit Card</h1>
         <div class="row">
             <div class="col-sm-6">
@@ -118,7 +118,69 @@
         </div>
     </div>
     <!--End Credit Card Payment-->
-    <div id="paying-paypal" class="col-sm-3">
-        <div class="pimg"><img class="paypal-img" src="/static/img/PayPal-Express.png"></div>
+    <div id="paying-paypal" class="col-sm-6">
+        <h1>PayPal</h1>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default credit-card-box">
+                    <div class="panel-heading display-table">
+                        <div class="row display-tr">
+                            <h3 class="panel-title display-td">Payment Details</h3>
+                            <div class="display-td">
+                                <img class="img-responsive pull-right paypal-img"
+                                     src="static/img/paypal-logo.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" id="paypal-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="paypalEmail">EMAIL</label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="tel"
+                                                    class="form-control"
+                                                    name="paypalEmail"
+                                                    placeholder="Email address"
+                                                    autocomplete="cc-number"
+                                                    required autofocus
+                                            />
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group">
+                                        <label for="paypalPassW"><span class="hidden-xs">PASSWORD</span></label>
+                                        <input
+                                                type="tel"
+                                                class="form-control"
+                                                name="paypalPassW"
+                                                placeholder="Password"
+                                                autocomplete="cc-exp"
+                                                required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-success btn-lg btn-block" type="submit">Checkout</button>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-xs-12">
+                                    <p class="payment-errors"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
