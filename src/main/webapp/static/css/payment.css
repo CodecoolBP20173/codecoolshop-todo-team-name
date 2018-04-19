@@ -21,3 +21,7 @@
 .title-right {
     text-align: right;
 }
+
+body {
+    font-family: 'PT Sans Narrow', sans-serif;
+}
