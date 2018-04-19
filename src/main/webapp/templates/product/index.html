@@ -52,9 +52,10 @@
     </div>
 
     <div id="products" class="row list-group">
-
-        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="thumbnail" th:if="${prod.getProductCategory().id} == ${cat.id}">
+        <div th:each="prod,iterStat : ${products}">
+            <div th:if="${prod.getProductCategory().id} == ${cat.id}">
+        <div class="item col-xs-4 col-lg-4">
+            <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
                      th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
                 <div class="caption">
@@ -74,6 +75,8 @@
                 </div>
             </div>
         </div>
+        </div>
+    </div>
     </div>
 
 </div>

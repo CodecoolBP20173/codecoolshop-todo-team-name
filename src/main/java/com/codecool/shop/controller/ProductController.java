@@ -99,7 +99,8 @@ public class ProductController extends HttpServlet {
                     categories.add(category);
                 }
             }
-
+            System.out.println(products);
+            System.out.println(categories);
             context.setVariable("category", categories);
             context.setVariable("products", products);
 
