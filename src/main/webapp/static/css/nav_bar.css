@@ -9,6 +9,7 @@
 
 .jumbotron {
     margin-bottom: 0 !important;
+    padding: 0 !important;
 }
 
 .cart-text {
@@ -18,4 +19,10 @@
 
 .cart-icon {
     text-align: center;
+}
+
+#team-logo {
+    max-height: 25px;
+    height: auto;
+    width: auto;
 }
