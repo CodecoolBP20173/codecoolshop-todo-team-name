@@ -21,7 +21,6 @@ import java.util.List;
 public class CheckoutController extends HttpServlet {
 
     CheckoutDao checkoutList = CheckoutDaoMem.getInstance();
-    OrderDao cartProducts = OrderDaoMem.getInstance();
     List<Object> orderInfo = new ArrayList<>();
 
     @Override
@@ -57,7 +56,6 @@ public class CheckoutController extends HttpServlet {
         checkoutList.add(shipZipcode);
         checkoutList.add(shipAddress);
 
-        orderInfo.add(cartProducts);
         orderInfo.add(checkoutList);
         
         response.sendRedirect("payment");
