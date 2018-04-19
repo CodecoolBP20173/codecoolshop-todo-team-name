@@ -1,11 +1,21 @@
-.bg-color {
-    background-color: #449b45 !important;
+.nav-bg-color {
+    background-color: #eee !important;
 }
 
-.navbar-brand {
-    color: white !important;
+.drop-li-a {
+    text-decoration: none !important;
+    color: black !important;
 }
 
-a {
-    text-decoration: none;
+.jumbotron {
+    margin-bottom: 0 !important;
+}
+
+.cart-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.cart-icon {
+    text-align: center;
 }

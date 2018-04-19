@@ -23,27 +23,27 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+            integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+            crossorigin="anonymous"></script>
 
     <script src="/static/js/shopping.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
 <body>
 
 <div class="jumbotron text-center">
     <div class="container">
-        <div class="col-sm-6">
-            <a href="/"><h1>Codecool Shop</h1></a>
-            <h2>Shopping Cart</h2>
-        </div>
-        <div class="col-sm-6">
-            <a href="/cart">
-                <img id="cart" src="/static/img/cart.png" alt="">
-            </a>
-            <div><span th:text="${itemNum}"></span> product(s) in cart</div>
+        <div>
+            <h1>Codecool Shop</h1>
         </div>
     </div>
 </div>
+
+<div th:replace="nav_bar.html :: header"></div>
 
 <div class="container">
     <ul class="list-group" th:each="prod,iter : ${products}">
