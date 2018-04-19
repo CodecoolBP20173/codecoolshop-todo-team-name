@@ -35,13 +35,7 @@
 </head>
 <body>
 
-<div class="jumbotron text-center">
-    <div class="container">
-        <div>
-            <h1>Codecool Shop</h1>
-        </div>
-    </div>
-</div>
+<div th:replace="title.html :: title"></div>
 
 <div th:replace="nav_bar.html :: header"></div>
 
@@ -60,11 +54,13 @@
             <span class="badge badge-primary badge-pill" th:text="${quantities.get(iter.index)}"></span>
         </li>
     </ul>
-</div>
-
-<div class="container">
-    <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
-    <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
+    <div th:if="${sum != '0.0 USD'}">
+        <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
+        <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
+    </div>
+    <div th:if="${sum == '0.0 USD'}">
+        <h3>Your Shopping Cart is empty.</h3>
+    </div>
 </div>
 
 </body>

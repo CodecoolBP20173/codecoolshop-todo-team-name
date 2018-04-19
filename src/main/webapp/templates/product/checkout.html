@@ -27,14 +27,14 @@
     <script src="/static/js/checkout.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
 
 <body>
 
+<div th:replace="title.html :: title"></div>
 
-<div class="jumbotron text-center">
-    <h1>Checkout Information</h1>
-</div>
 <div class="container">
     <form action='/checkout' method="POST">
         <h1 id="fill_checkout">Fill the following form with your information please</h1>
