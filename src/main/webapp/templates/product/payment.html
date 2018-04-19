@@ -28,6 +28,8 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/payment.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+          integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
 
 <body>
@@ -54,6 +56,24 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" id="payment-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="cardHolder">CARD HOLDER</label>
+                                        <div class="input-group">
+                                            <input
+                                                    type="tel"
+                                                    class="form-control"
+                                                    name="cardHolder"
+                                                    placeholder="Name"
+                                                    autocomplete="cc-number"
+                                                    required autofocus
+                                            />
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
@@ -147,7 +167,7 @@
                                                     autocomplete="cc-number"
                                                     required autofocus
                                             />
-                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
                                         </div>
                                     </div>
                                 </div>
