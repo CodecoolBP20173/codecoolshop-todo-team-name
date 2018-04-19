@@ -13,3 +13,11 @@
 .pimg {
     padding-top: 210px;
 }
+
+.form-right {
+    float: right;
+}
+
+.title-right {
+    text-align: right;
+}
