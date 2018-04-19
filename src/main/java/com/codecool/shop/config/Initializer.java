@@ -28,13 +28,13 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(bme);
         Supplier elte = new Supplier("ELTE", "University");
         supplierDataStore.add(elte);
-        Supplier corvinus = new Supplier("Corvinus", "University");
+        Supplier corvinus = new Supplier("BCE", "University");
         supplierDataStore.add(corvinus);
-        Supplier pazmany = new Supplier("Pazmany", "University");
+        Supplier pazmany = new Supplier("PPKE", "University");
         supplierDataStore.add(pazmany);
-        Supplier miskolcu = new Supplier("University of Miskolc", "University");
+        Supplier miskolcu = new Supplier("ME", "University");
         supplierDataStore.add(miskolcu);
-        Supplier bolyai = new Supplier("Bolyai", "University");
+        Supplier bolyai = new Supplier("BBTE", "University");
         supplierDataStore.add(bolyai);
         Supplier unknown = new Supplier("Unkown", "University unknown");
         supplierDataStore.add(unknown);
@@ -64,7 +64,7 @@ public class Initializer implements ServletContextListener {
 
         //OOP
         productDataStore.add(new Product("Bence Fabian", 100, "CC", "I can help you with these topics: Python, Java, C/C++, SW testing, Programming in general (design / clean code), Git, Programming languages, Systems programming, Networks, Unix (Linux and OS X are both Unix-based), Containers (namespaces, cgroups, docker, firejail), Graphics / audio programming.", oop, elte));
-        productDataStore.add(new Product("Zoltan Sallay", 100, "CC", "I can help you with these topics: Java SE / EE, Algorithms, SQL, Python, OOP, Web (HTML+CSS+JS).", oop, unknown));
+        productDataStore.add(new Product("Zoltan Sallay", 100, "CC", "I can help you with these topics: Java SE / EE, Algorithms, SQL, Python, OOP, Web (HTML+CSS+JS).", oop, elte));
         productDataStore.add(new Product("Balazs Farago", 100, "CC", "I'm Balazs Farago but you can call me Intergalactic Spacelord of the Known and Unknown Universe, or just Balazs.", oop, pazmany));
 
         //Advanced
