@@ -56,11 +56,11 @@
             <span class="badge badge-primary badge-pill" th:text="${quantities.get(iter.index)}"></span>
         </li>
     </ul>
-    <div th:if="${sum != '0.0 USD'}">
+    <div th:if="${sum != '0.0 CC'}">
         <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
         <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
     </div>
-    <div th:if="${sum == '0.0 USD'}">
+    <div th:if="${sum == '0.0 CC'}">
         <h3>Your Shopping Cart is empty.</h3>
     </div>
 </div>
