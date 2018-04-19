@@ -7,9 +7,10 @@
     color: black !important;
 }
 
-.jumbotron {
+.jumbotron h1, .jumbotron {
     margin-bottom: 0 !important;
     padding: 0 !important;
+    font-size: 40px !important;
 }
 
 .cart-text {
