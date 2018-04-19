@@ -6,55 +6,76 @@ import com.codecool.shop.model.Product;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderDaoMem implements OrderDao {
 
-    private List<Product> cartProducts = new ArrayList<>();
-    private static OrderDaoMem instance = null;
+    private List<Product> cartProducts;
+    private List<Integer> productNum;
+    private List<String> subtotals;
+    private static HashMap<String, OrderDaoMem> orders;
 
     OrderDaoMem() {
+        cartProducts = new ArrayList<>();
+        productNum = new ArrayList<>();
+        subtotals = new ArrayList<>();
     }
 
-    public static OrderDaoMem getInstance() {
-        if (instance == null) {
-            instance = new OrderDaoMem();
+    public static OrderDaoMem getInstance(String id) {
+        if (orders == null) {
+            orders = new HashMap<String, OrderDaoMem>();
         }
-        return instance;
+        if (!orders.containsKey(id)) {
+            orders.put(id, new OrderDaoMem());
+        }
+        return orders.get(id);
+    }
+
+    @Override
+    public List<Integer> getQuantities() {
+        return productNum;
     }
 
     @Override
     public void add(Product product) {
         boolean addProduct = true;
-        for (Product cartProduct : cartProducts) {
-            if (cartProduct.getId() == product.getId()) {
-                cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+        for (int i = 0; i < cartProducts.size(); i++) {
+            if (cartProducts.get(i).getId() == product.getId()) {
                 addProduct = false;
+                productNum.set(i, productNum.get(i) + 1);
                 break;
             }
+
         }
         if (addProduct) {
             cartProducts.add(product);
+            productNum.add(1);
         }
     }
 
     @Override
     public void remove(Product product) {
-        for (Product cartProduct : cartProducts) {
-            if (cartProduct.getId() == product.getId() && cartProduct.getQuantity() > 1) {
-                cartProduct.setQuantity(cartProduct.getQuantity() - 1);
-                break;
+        for (int i = 0; i < cartProducts.size(); i++) {
+            if (cartProducts.get(i).getId() == product.getId()) {
+                productNum.set(i, productNum.get(i) - 1);
             }
-            if (cartProduct.getId() == product.getId() && cartProduct.getQuantity() == 1) {
-                cartProducts.remove(cartProduct);
+            if (cartProducts.get(i).getId() == product.getId() && productNum.get(i) == 0) {
+                cartProducts.remove(cartProducts.get(i));
+                productNum.remove(productNum.get(i));
             }
         }
     }
 
     @Override
     public void delete(Product product) {
-        product.setQuantity(1);
-        cartProducts.remove(product);
+
+        for (int i = 0; i < cartProducts.size(); i++) {
+            if (cartProducts.get(i).getId() == product.getId()) {
+                productNum.remove(productNum.get(i));
+                cartProducts.remove(cartProducts.get(i));
+            }
+        }
     }
 
     @Override
@@ -65,8 +86,8 @@ public class OrderDaoMem implements OrderDao {
     @Override
     public int getProductNum() {
         int sum = 0;
-        for (Product product:cartProducts) {
-            sum += product.getQuantity();
+        for (int i : productNum) {
+            sum += i;
         }
         return sum;
     }
@@ -80,7 +101,7 @@ public class OrderDaoMem implements OrderDao {
     public double sumOfPrices() {
         double sum = 0;
         for (int i = 0; i < cartProducts.size(); i++) {
-            sum += cartProducts.get(i).getDefaultPrice() * cartProducts.get(i).getQuantity();
+            sum += cartProducts.get(i).getDefaultPrice() * productNum.get(i);
         }
 
         BigDecimal bd = new BigDecimal(Double.toString(sum));

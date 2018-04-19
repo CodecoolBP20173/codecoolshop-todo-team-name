@@ -5,34 +5,51 @@
 </head>
 <body>
 <div th:fragment="header">
-    <div class="container">
-        <nav class="navbar navbar-inverse">
+    <div class="">
+        <nav class="navbar nav-bg-color">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Navbar</a>
+                <a class="navbar-brand drop-li-a hvr-icon-pulse-grow" href="/">
+                    Home
+                    <i class="fa fa-home hvr-icon"></i>
+                </a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <li class="dropdown" th:unless="${categories} == null">
+                        <a class="dropdown-toggle drop-li-a hvr-shrink" data-toggle="dropdown" href="#">
                             Categories
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <div th:each="cat : ${categories}">
-                                <li><a href="/" th:href="@{/filter(type=category, id=${cat.id})}" th:text="${cat.name}">Category</a></li>
-                            </div>
+                            <li th:each="cat : ${categories}"><a class="drop-li-a"
+                                                                 href="/"
+                                                                 th:href="@{/filter(type=category, id=${cat.id})}"
+                                                                 th:text="${cat.name}">Category</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <li class="dropdown" th:unless="${suppliers} == null">
+                        <a class="dropdown-toggle drop-li-a hvr-shrink" data-toggle="dropdown" href="#">
                             Suppliers
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <div th:each="supplier : ${suppliers}">
-                                <li><a href="/" th:href="@{/filter(type=supplier, id=${supplier.id})}" th:text="${supplier.name}"></a></li>
-                            </div>
+                            <li th:each="supplier : ${suppliers}"><a href="/"
+                                                                     th:href="@{/filter(type=supplier, id=${supplier.id})}"
+                                                                     th:text="${supplier.name}"></a></li>
                         </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="cart-text">
+                            <span th:text="${itemNum}"></span>
+                        </div>
+                        <div class="cart-icon hvr-bob">
+                            <a href="/cart">
+                                <img id="cart" src="/static/img/cart.png" alt="">
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>

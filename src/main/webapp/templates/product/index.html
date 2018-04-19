@@ -25,23 +25,21 @@
             crossorigin="anonymous"></script>
 
     <script src="/static/js/shopping.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+            integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+            crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
 
 <body>
 
 <div class="jumbotron text-center">
     <div class="container">
-        <div class="col-sm-6">
+        <div>
             <h1>Codecool Shop</h1>
-        </div>
-        <div class="col-sm-6">
-            <a href="/cart">
-                <img id="cart" src="/static/img/cart.png" alt="">
-            </a>
-            <div><span th:text="${itemNum}"></span> product(s) in cart</div>
         </div>
     </div>
 </div>
@@ -57,7 +55,8 @@
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail" th:if="${prod.getProductCategory().id} == ${cat.id}">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product
@@ -67,7 +66,9 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <button th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" class="btn btn-success" href="#">Add to cart</button>
+                            <button th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" class="btn btn-success"
+                                    href="#">Add to cart
+                            </button>
                         </div>
                     </div>
                 </div>

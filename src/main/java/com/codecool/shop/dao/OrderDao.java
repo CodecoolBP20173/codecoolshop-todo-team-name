@@ -5,6 +5,9 @@ import com.codecool.shop.model.Product;
 import java.util.List;
 
 public interface OrderDao {
+
+    List<Integer> getQuantities(); //Returns quantity of each item in cart
+
     void add(Product product); //Adds 1 product to cart or increases its number
 
     void remove(Product product); //Removes 1 product from cart or decreases its number

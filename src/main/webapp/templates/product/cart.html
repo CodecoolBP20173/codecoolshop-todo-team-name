@@ -46,18 +46,18 @@
 <div th:replace="nav_bar.html :: header"></div>
 
 <div class="container">
-    <ul class="list-group" th:each="prod,iterStat : ${products}">
+    <ul class="list-group" th:each="prod,iter : ${products}">
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <span th:text="${prod.getName()}"></span>
-            <span id="price"><strong><span th:text="${prod.getSubtotal()}"></span> (<span
-                    th:text="${prod.getQuantity()}"></span>x<span th:text="${prod.getPrice()}"></span>)</strong></span>
+            <span id="price"><strong><span th:text="${quantities.get(iter.index) * prod.getDefaultPrice + ' ' + prod.getDefaultCurrencyString }"></span> (<span
+                    th:text="${quantities.get(iter.index)}"></span>x<span th:text="${prod.getPrice()}"></span>)</strong></span>
             <a th:onclick="'javascript:deleteItem(' + ${prod.getId()} + ')'" href="#"
                class="badge badge-primary badge-pill">Remove this item</a>
             <a th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" href="#"
                class="badge badge-primary badge-pill">+</a>
             <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#"
                class="badge badge-primary badge-pill">-</a>
-            <span class="badge badge-primary badge-pill" th:text="${prod.getQuantity()}"></span>
+            <span class="badge badge-primary badge-pill" th:text="${quantities.get(iter.index)}"></span>
         </li>
     </ul>
     <div th:if="${sum != '0.0 USD'}">
