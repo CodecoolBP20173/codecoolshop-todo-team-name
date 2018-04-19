@@ -94,7 +94,7 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public String getSumOfPrices() {
-        return sumOfPrices() + " USD";
+        return sumOfPrices() + " CC";
     }
 
     @Override

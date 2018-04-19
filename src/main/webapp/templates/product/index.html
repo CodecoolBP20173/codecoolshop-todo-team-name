@@ -56,7 +56,7 @@
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="thumbnail" th:if="${prod.getProductCategory().id} == ${cat.id}">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
-                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product
