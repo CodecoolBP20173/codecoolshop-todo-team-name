@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -28,12 +29,6 @@ public class ProductController extends HttpServlet {
 
     ProductDao productDataStore = ProductDaoMem.getInstance();
     ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    OrderDao cartProducts = OrderDaoMem.getInstance();
-
-
-    //context.setVariables(params);
-
-
     SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
     @Override
@@ -42,14 +37,17 @@ public class ProductController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
+        HttpSession session = req.getSession();
+        session.setAttribute("customerOrder", OrderDaoMem.getInstance(session.getId()));
+        OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+
         String type = req.getParameter("type");
 
         setContent(req, context, type);
         context.setVariable("recipient", "World");
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
-        context.setVariable("itemNum", cartProducts.getProductNum());
-        context.setVariable("itemNum", cartProducts.getProductNum());
+        context.setVariable("itemNum", cart.getProductNum());
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
@@ -59,20 +57,26 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        HttpSession session = request.getSession();
+        session.setAttribute("customerOrder", OrderDaoMem.getInstance(session.getId()));
+        OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+
         String action = request.getParameter("action");
         Integer id = Integer.valueOf(request.getParameter("id"));
+
         if ("add".equals(action)) {
-            cartProducts.add(productDataStore.find(id));
+            cart.add(productDataStore.find(id));
         } else if ("remove".equals(action)) {
-            cartProducts.remove(productDataStore.find(id));
+            cart.remove(productDataStore.find(id));
         } else if ("delete".equals(action)) {
-            cartProducts.delete(productDataStore.find(id));
+            cart.delete(productDataStore.find(id));
         } else {
             super.doPost(request, response);
         }
     }
 
     private void setContent(HttpServletRequest req, WebContext context, String type) {
+
         if ("category".equals(type)) {
             int categoryId = Integer.parseInt(req.getParameter("id"));
 
