@@ -1,3 +1,18 @@
 .product-img {
-    max-width: 200px !important;
+    max-width: 170px !important;
+}
+
+.product-img-cart {
+    max-width: 90px !important;
+    margin-right: 10px !important;
+}
+
+.list-group-item {
+    display: grid !important;
+    width: fit-content !important;
+}
+
+.cart-card {
+    border: none !important;
+    font-size: 25px;
 }
