@@ -41,7 +41,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul th:if="${itemNum != null}" class="nav navbar-nav navbar-right">
                     <li>
                         <div class="cart-text">
                             <span th:text="${itemNum}"></span>

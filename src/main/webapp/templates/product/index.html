@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/product.css"/>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
@@ -52,7 +53,7 @@
             <div th:if="${prod.getProductCategory().id} == ${cat.id}">
                 <div class="item col-xs-4 col-lg-4">
                     <div class="thumbnail">
-                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff"
+                        <img class="group list-group-image product-img" src="http://placehold.it/400x250/000/fff"
                              th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
                         <div class="caption">
                             <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>

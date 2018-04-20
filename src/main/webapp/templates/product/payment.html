@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/payment.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
           integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
@@ -39,6 +40,7 @@
 <body>
 
 <div th:replace="title.html :: title"></div>
+<div th:replace="nav_bar.html :: header"></div>
 
 <div class="container-fluid">
     <!--Credit Card Payment-->
@@ -69,7 +71,6 @@
                                                     name="cardHolder"
                                                     placeholder="Name"
                                                     autocomplete="cc-number"
-                                                    required autofocus
                                             />
                                             <span class="input-group-addon"><i class="fas fa-user"></i></span>
                                         </div>
@@ -87,7 +88,6 @@
                                                     name="cardNumber"
                                                     placeholder="Valid Card Number"
                                                     autocomplete="cc-number"
-                                                    required autofocus
                                             />
                                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                         </div>
@@ -167,7 +167,6 @@
                                                     name="paypalEmail"
                                                     placeholder="Email address"
                                                     autocomplete="cc-number"
-                                                    required autofocus
                                             />
                                             <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
                                         </div>
