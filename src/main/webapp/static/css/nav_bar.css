@@ -1,0 +1,34 @@
+.nav-bg-color {
+    background-color: #eee !important;
+}
+
+.drop-li-a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.jumbotron h1, .jumbotron {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    font-size: 40px !important;
+}
+
+.cart-text {
+    text-align: center;
+    font-weight: bold;
+}
+
+.cart-icon {
+    text-align: center;
+}
+
+#team-logo {
+    max-height: 25px;
+    height: auto;
+    width: auto;
+}
+
+html body {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 1.6em;
+}

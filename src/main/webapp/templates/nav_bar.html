@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="header">
+    <div class="">
+        <nav class="navbar nav-bg-color">
+            <div class="navbar-header">
+                <a class="navbar-brand drop-li-a hvr-icon-pulse-grow" href="/">
+                    Home
+                    <i class="fa fa-home hvr-icon"></i>
+                </a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" th:unless="${categories} == null">
+                        <a class="dropdown-toggle drop-li-a hvr-shrink" data-toggle="dropdown" href="#">
+                            Categories
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li th:each="cat : ${categories}"><a class="drop-li-a"
+                                                                 href="/"
+                                                                 th:href="@{/filter(type=category, id=${cat.id})}"
+                                                                 th:text="${cat.name}">Category</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" th:unless="${suppliers} == null">
+                        <a class="dropdown-toggle drop-li-a hvr-shrink" data-toggle="dropdown" href="#">
+                            Suppliers
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li th:each="supplier : ${suppliers}"><a href="/"
+                                                                     th:href="@{/filter(type=supplier, id=${supplier.id})}"
+                                                                     th:text="${supplier.name}"></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul th:if="${itemNum != null}" class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="cart-text">
+                            <span th:text="${itemNum}"></span>
+                        </div>
+                        <div class="cart-icon hvr-bob">
+                            <a href="/cart">
+                                <img id="cart" src="/static/img/cart.png" alt="">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

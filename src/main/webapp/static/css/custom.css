@@ -60,3 +60,43 @@
 {
     margin: 0 0 11px;
 }
+
+#cart {
+    width: 15%;
+}
+
+#price {
+    padding-left: 15px;
+}
+
+#fill_checkout {
+    text-align: center;
+}
+
+#shipping, #billing {
+    text-align: center;
+    margin: 10px;
+}
+
+#checkout_button {
+    margin: 20px 0;
+}
+
+#copy_button {
+    display: block;
+    text-align: center;
+    margin:auto;
+}
+
+#shipping_label {
+    display: run-in;
+    text-align: left;
+    margin:0 auto;
+}
+
+html body {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 1.6em;
+}
+
+

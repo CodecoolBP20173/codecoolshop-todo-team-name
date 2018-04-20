@@ -1,0 +1,27 @@
+.paypal-img {
+    display: block;
+    max-width: 207px;
+    max-height: 43px !important;
+    width: auto;
+    height: auto;
+}
+
+.col-sm-3, .col-sm-9 {
+    height: 420px !important;
+}
+
+.pimg {
+    padding-top: 210px;
+}
+
+.form-right {
+    float: right;
+}
+
+.title-right {
+    text-align: right;
+}
+
+body {
+    font-family: 'PT Sans Narrow', sans-serif;
+}

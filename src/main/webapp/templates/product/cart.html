@@ -1,6 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
+
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -23,63 +25,54 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-
-    <script src="/static/js/shopping.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
+
+    <script src="/static/js/shopping.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/nav_bar.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/product.css"/>
-
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
-
 </head>
-
 <body>
 
 <div th:replace="title.html :: title"></div>
 <div th:replace="nav_bar.html :: header"></div>
 
-<div class="container" th:each="cat,iterStat : ${category}">
-    <div class="well well-sm">
-        <strong th:text="${cat.name}">Category Title</strong>
-    </div>
+<div class="container">
+    <ul class="list-group" th:each="prod,iter : ${products}">
+        <li class="cart-card list-group-item d-flex justify-content-between align-items-center">
+            <d class="product-info-cart">
+                <img class="group list-group-image product-img-cart" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
+                <span th:text="${prod.getName()}"></span>
+                <span id="price"><strong><span
+                        th:text="${quantities.get(iter.index) * prod.getDefaultPrice + ' ' + prod.getDefaultCurrencyString }"></span> (<span
+                        th:text="${quantities.get(iter.index)}"></span>x<span
+                        th:text="${prod.getPrice()}"></span>)</strong></span>
+            </d>
+            <span class="product-amount-cart">
+                <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#"
+                   class="badge badge-primary badge-pill">-</a>
+                <span class="badge badge-primary badge-pill" th:text="${quantities.get(iter.index)}"></span>
+                <a th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'" href="#"
+                   class="badge badge-primary badge-pill">+</a>
+                <a th:onclick="'javascript:deleteItem(' + ${prod.getId()} + ')'" href="#"
+                   class="badge badge-primary badge-pill">Remove this item</a>
+            </span>
 
-    <div id="products" class="row list-group">
-        <div th:each="prod,iterStat : ${products}">
-            <div th:if="${prod.getProductCategory().id} == ${cat.id}">
-                <div class="item col-xs-4 col-lg-4">
-                    <div class="thumbnail">
-                        <img class="group list-group-image product-img" src="http://placehold.it/400x250/000/fff"
-                             th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
-                        <div class="caption">
-                            <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                            <p class="group inner list-group-item-text" th:text="${prod.description}">Product
-                                description... </p>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                                </div>
-                                <div class="col-xs-12 col-md-6">
-                                    <button th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'"
-                                            class="btn btn-success"
-                                            href="#">Add to cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </li>
+    </ul>
+    <div th:if="${sum != '0.0 CC'}">
+        <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
+        <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
     </div>
-
+    <div th:if="${sum == '0.0 CC'}">
+        <h3>Your Shopping Cart is empty.</h3>
+    </div>
 </div>
-
-<div th:replace="footer.html :: copy"></div>
 
 </body>
 </html>
