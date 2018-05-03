@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CheckoutDao;
 import com.codecool.shop.dao.implementation.CheckoutDaoMem;
+import com.codecool.shop.model.Checkout;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -30,6 +31,7 @@ public class CheckoutController extends HttpServlet {
         session.setAttribute("customerCheckout", CheckoutDaoMem.getInstance(session.getId()));
         CheckoutDao checkoutList = (CheckoutDao) session.getAttribute("customerCheckout");
 
+        int userId = 1;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("telephone");
@@ -41,18 +43,9 @@ public class CheckoutController extends HttpServlet {
         String shipCity = request.getParameter("shipcity");
         String shipZipcode = request.getParameter("shipzipcode");
         String shipAddress = request.getParameter("shipaddress");
+        Checkout checkout = new Checkout(userId, name, email, phoneNumber, billCountry, billCity, billZipcode, billAddress, shipCountry, shipCity, shipZipcode, shipAddress);
 
-        checkoutList.add(name);
-        checkoutList.add(email);
-        checkoutList.add(phoneNumber);
-        checkoutList.add(billCountry);
-        checkoutList.add(billCity);
-        checkoutList.add(billZipcode);
-        checkoutList.add(billAddress);
-        checkoutList.add(shipCountry);
-        checkoutList.add(shipCity);
-        checkoutList.add(shipZipcode);
-        checkoutList.add(shipAddress);
+        checkoutList.add(checkout);
 
         response.sendRedirect("payment");
 
