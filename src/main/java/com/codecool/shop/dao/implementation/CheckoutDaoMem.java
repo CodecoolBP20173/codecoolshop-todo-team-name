@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CheckoutDao;
+import com.codecool.shop.model.Checkout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class CheckoutDaoMem implements CheckoutDao {
 
-    private List<String> checkoutList;
+    private List<Checkout> checkoutList;
     private static HashMap<String, CheckoutDaoMem> instance;
 
     private CheckoutDaoMem() {
@@ -26,12 +27,12 @@ public class CheckoutDaoMem implements CheckoutDao {
     }
 
     @Override
-    public void add(String string) {
-        checkoutList.add(string);
+    public void add(Checkout checkout) {
+        checkoutList.add(checkout);
     }
 
     @Override
-    public List<String> getAll() {
+    public List<Checkout> getAll() {
         return checkoutList;
     }
 }
