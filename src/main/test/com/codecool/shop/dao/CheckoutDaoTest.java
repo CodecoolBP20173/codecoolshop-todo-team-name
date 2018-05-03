@@ -1,6 +1,7 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.CheckoutDaoMem;
+import com.codecool.shop.model.Checkout;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,18 +24,19 @@ class CheckoutDaoTest {
 
     @Test
     public void testIsInformationAdded() {
-        /*String data = "Test information";
-        String result = "Test information";
-        checkoutDataStore.add(data);
-        assertEquals(result, checkoutDataStore.getAll().get(checkoutDataStore.getAll().size()-1));*/
+        int sizeBefore = checkoutDataStore.getAll().size();
+        Checkout testCheckout = new Checkout(1, "Test Name", "e@mail.com", "30601234567", "Testcountry", "TestCity", "1000", "Testaddress", "Testcountry", "Testcity", "1000", "Testaddress");
+        checkoutDataStore.add(testCheckout);
+        int sizeAfter = checkoutDataStore.getAll().size();
+        assertEquals(sizeAfter, sizeBefore+1);
     }
 
     @Test
     public void testIsGotAll() {
-        /*String data = "Test information 2";
-        List<String> resultList = new ArrayList<>(Arrays.asList("Test information", "Test information 2"));
-        checkoutDataStore.add(data);
-        assertEquals(resultList, checkoutDataStore.getAll());*/
+        Checkout testCheckout2 = new Checkout(2, "Test Name2", "e@mail.com", "30601234567", "Testcountry2", "TestCity2", "1000", "Testaddress2", "Testcountry2", "Testcity2", "1000", "Testaddress2");
+        checkoutDataStore.add(testCheckout2);
+        int size = checkoutDataStore.getAll().size();
+        assertEquals(size, 2);
     }
 
 }
