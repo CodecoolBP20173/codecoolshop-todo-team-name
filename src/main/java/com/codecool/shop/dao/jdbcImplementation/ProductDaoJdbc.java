@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.jdbcImplementation;
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -49,21 +50,25 @@ public class ProductDaoJdbc implements ProductDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.printf(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
+        }
+    }
 
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.printf(e.getMessage());
+    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
+        try {
+            if (stmt != null) {
+                stmt.close();
             }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
+
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
         }
     }
 
@@ -92,7 +97,8 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory productCategory = ProductCategoryDaoJdbc.find(productCategoryId);
 
                 Integer productSupplierId = rs.getInt("supplierid");
-                Supplier supplier = SupplierDaoJdbc.find(productSupplierId);
+                SupplierDao supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+                Supplier supplier = supplierDaoJdbc.find(productSupplierId);
 
                 product.setId(productId);
                 product.setName(productName);
@@ -106,27 +112,30 @@ public class ProductDaoJdbc implements ProductDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.printf(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.printf(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
 
         return product;
     }
 
     public void remove(int id) {
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        String query =
+                "DELETE FROM product WHERE id = ?";
+
+        try {
+            connection = ConnectionManager.getConnection();
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            closeStatementAndConnection(connection, stmt);
+        }
     }
 
     public List<Product> getAll() {
