@@ -11,7 +11,18 @@ import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
 
+    private static ProductDaoJdbc instance = null;
 
+    private ProductDaoJdbc() {}
+
+    public static ProductDaoJdbc getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoJdbc();
+        }
+        return instance;
+    }
+
+    @Override
     public void add(Product product) {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -26,13 +37,14 @@ public class ProductDaoJdbc implements ProductDao {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDescription());
-            stmt.setString(3, product.getPrice());
+            stmt.setFloat(3, product.getDefaultPrice());
             stmt.setString(4, product.getDefaultCurrency());
             stmt.setInt(5, product.getProductCategory().getId());
             stmt.setInt(6, product.getSupplier().getId());
             stmt.executeUpdate();
 
         } catch (Exception e) {
+            System.out.print(e.getMessage());
 
         } finally {
             try {
