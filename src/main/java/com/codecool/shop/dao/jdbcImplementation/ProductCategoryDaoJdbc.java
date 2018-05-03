@@ -86,7 +86,9 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
                 department = rs.getString("department");
                 description = rs.getString("description");
             }
-            return new ProductCategory(name, department, description);
+            ProductCategory p = new ProductCategory(name, department, description);
+            p.setId(id);
+            return p;
 
         } catch (Exception e) {
             System.out.print(e.getMessage());

@@ -15,7 +15,6 @@ public class OrderDaoMem implements OrderDao {
     private List<Integer> productNum;
     private List<String> subtotals;
     private static HashMap<String, OrderDaoMem> orders;
-
     OrderDaoMem() {
         cartProducts = new ArrayList<>();
         productNum = new ArrayList<>();
