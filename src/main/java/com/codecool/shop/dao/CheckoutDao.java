@@ -1,10 +1,12 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.model.Checkout;
+
 import java.util.List;
 
 public interface CheckoutDao {
 
-    void add(String string);
+    void add(Checkout checkout);
 
-    List<String> getAll();
+    List<Checkout> getAll();
 }
