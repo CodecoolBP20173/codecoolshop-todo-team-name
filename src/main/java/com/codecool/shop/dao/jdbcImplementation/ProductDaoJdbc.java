@@ -245,7 +245,60 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        List<Product> filteredProducts = new ArrayList<>();
+
+        int id = productCategory.getId();
+
+        String query =
+                "SELECT * FROM product WHERE productcategoryid = ?";
+
+        try {
+            connection = ConnectionManager.getConnection();
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+
+                Product product = new Product(
+                        "",
+                        0,
+                        "",
+                        "",
+                        new ProductCategory("", "", ""),
+                        new Supplier("", "")
+                );
+
+                Integer productSupplierId = resultSet.getInt("supplierid");
+                SupplierDao supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+                Supplier supplier = supplierDaoJdbc.find(productSupplierId);
+
+                Integer productId = resultSet.getInt("id");
+                String productName = resultSet.getString("name");
+                String productDescription = resultSet.getString("description");
+                Integer productPrice = resultSet.getInt("price");
+
+                product.setId(productId);
+                product.setName(productName);
+                ((Product) product).setPrice(productPrice, "CC");
+                product.setDescription(productDescription);
+                ((Product) product).setProductCategory(productCategory);
+                ((Product) product).setSupplier(supplier);
+
+                filteredProducts.add(product);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            closeStatementAndConnection(connection, stmt);
+        }
+
+        return filteredProducts;
     }
 
     private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
