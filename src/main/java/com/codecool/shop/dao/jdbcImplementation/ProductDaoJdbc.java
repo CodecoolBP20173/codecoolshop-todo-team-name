@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.jdbcImplementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
@@ -9,6 +10,7 @@ import com.codecool.shop.model.Supplier;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
@@ -25,7 +27,6 @@ public class ProductDaoJdbc implements ProductDao {
         return instance;
     }
 
-    @Override
     public void add(Product product) {
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -54,29 +55,18 @@ public class ProductDaoJdbc implements ProductDao {
         }
     }
 
-    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
-        try {
-            if (stmt != null) {
-                stmt.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
-
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
-    }
-
     public Product find(int id) {
         Connection connection = null;
         PreparedStatement stmt = null;
 
-        Product product = new Product(null, 0, null, null, null);
+        Product product = new Product(
+                "",
+                0,
+                "",
+                "",
+                new ProductCategory("", "", ""),
+                new Supplier("", "")
+        );
 
         String query =
                 "SELECT * FROM product WHERE id = ?";
@@ -94,7 +84,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Integer productPrice = rs.getInt("price");
 
                 Integer productCategoryId = rs.getInt("productcategoryid");
-                ProductCategory productCategory = ProductCategoryDaoJdbc.find(productCategoryId);
+                ProductCategoryDao productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory productCategory = productCategoryDaoJdbc.find(productCategoryId);
 
                 Integer productSupplierId = rs.getInt("supplierid");
                 SupplierDao supplierDaoJdbc = SupplierDaoJdbc.getInstance();
@@ -102,7 +93,7 @@ public class ProductDaoJdbc implements ProductDao {
 
                 product.setId(productId);
                 product.setName(productName);
-                ((Product) product).setPrice(productPrice);
+                ((Product) product).setPrice(productPrice, "CC");
                 product.setDescription(productDescription);
                 ((Product) product).setProductCategory(productCategory);
                 ((Product) product).setSupplier(supplier);
@@ -139,7 +130,61 @@ public class ProductDaoJdbc implements ProductDao {
     }
 
     public List<Product> getAll() {
-        return null;
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        List<Product> allProducts = new ArrayList<>();
+
+        String query =
+                "SELECT * FROM product";
+
+        try {
+            connection = ConnectionManager.getConnection();
+            stmt = connection.prepareStatement(query);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+
+                Product product = new Product(
+                        "",
+                        0,
+                        "",
+                        "",
+                        new ProductCategory("", "", ""),
+                        new Supplier("", "")
+                );
+
+                Integer productCategoryId = resultSet.getInt("productcategoryid");
+                ProductCategoryDao productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory productCategory = productCategoryDaoJdbc.find(productCategoryId);
+
+                Integer productSupplierId = resultSet.getInt("supplierid");
+                SupplierDao supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+                Supplier supplier = supplierDaoJdbc.find(productSupplierId);
+
+                Integer productId = resultSet.getInt("id");
+                String productName = resultSet.getString("name");
+                String productDescription = resultSet.getString("description");
+                Integer productPrice = resultSet.getInt("price");
+
+                product.setId(productId);
+                product.setName(productName);
+                ((Product) product).setPrice(productPrice, "CC");
+                product.setDescription(productDescription);
+                ((Product) product).setProductCategory(productCategory);
+                ((Product) product).setSupplier(supplier);
+
+                allProducts.add(product);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            closeStatementAndConnection(connection, stmt);
+        }
+
+        return allProducts;
     }
 
     public List<Product> getBy(Supplier supplier) {
@@ -148,5 +193,23 @@ public class ProductDaoJdbc implements ProductDao {
 
     public List<Product> getBy(ProductCategory productCategory) {
         return null;
+    }
+
+    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
+
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
     }
 }

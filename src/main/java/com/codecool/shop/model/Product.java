@@ -10,18 +10,12 @@ public class Product extends BaseModel {
     private Supplier supplier;
 
 
-    public Product(String name, float defaultPrice, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
-        this.setPrice(defaultPrice);
+        this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
     }
-
-    public Product(String name, float defaultPrice, String currencyString, String description) {
-        super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-    }
-
 
     public float getDefaultPrice() {
         return defaultPrice;
@@ -47,7 +41,7 @@ public class Product extends BaseModel {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
 
-    public void setPrice(float price) {
+    public void setPrice(float price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = "CC";
     }
