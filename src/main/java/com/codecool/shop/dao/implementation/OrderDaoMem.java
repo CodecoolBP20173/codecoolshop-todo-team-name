@@ -1,3 +1,4 @@
+/*
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.OrderDao;
@@ -108,3 +109,4 @@ public class OrderDaoMem implements OrderDao {
         return bd.doubleValue();
     }
 }
+*/
