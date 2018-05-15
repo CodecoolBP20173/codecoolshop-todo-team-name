@@ -1,4 +1,4 @@
-package com.codecool.shop.dao.jdbcimplementation;
+package com.codecool.shop.dao.jdbcImplementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,6 +35,24 @@ public class RegistrationDaoJdbc {
             System.out.println(e.getMessage());
         } finally {
             closeStatementAndConnection(connection, stmt);
+        }
+    }
+
+    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
+
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
         }
     }
 }
