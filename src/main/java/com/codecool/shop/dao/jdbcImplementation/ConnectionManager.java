@@ -7,8 +7,8 @@ import java.sql.Statement;
 public class ConnectionManager {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "koroknayakos";
-    private static final String DB_PASSWORD = "Fisher180";
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
     public static java.sql.Connection getConnection() throws SQLException {
 
