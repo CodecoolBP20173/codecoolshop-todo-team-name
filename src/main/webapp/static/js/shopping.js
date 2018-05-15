@@ -16,5 +16,5 @@ function deleteItem(id){
     var req = new XMLHttpRequest();
     req.open('POST', '/?action=delete&id=' + id);
     req.send();
-    location.reload();
+    setTimeout(location.reload.bind(location), 150);
 }
