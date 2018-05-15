@@ -66,12 +66,13 @@ public class OrderDaoJdbc implements OrderDao {
 
         String query =
                 "DELETE FROM userorder " +
-                        "WHERE userid=? AND productid IN (SELECT id FROM product LIMIT 1)";
+                        "WHERE ctid IN (SELECT ctid FROM userorder WHERE productid=? AND userid=? LIMIT 1);";
 
         try {
             connection = ConnectionManager.getConnection();
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, userId);
+            stmt.setInt(1, product.getId());
+            stmt.setInt(2, userId);
             stmt.executeUpdate();
 
         } catch (Exception e) {

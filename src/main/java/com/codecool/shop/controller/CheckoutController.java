@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CheckoutDao;
 import com.codecool.shop.dao.implementation.CheckoutDaoMem;
+import com.codecool.shop.dao.jdbcImplementation.CheckoutDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -28,7 +29,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.setAttribute("customerCheckout", CheckoutDaoMem.getInstance(session.getId()));
+        session.setAttribute("customerCheckout", CheckoutDaoJdbc.getInstance());
         CheckoutDao checkoutList = (CheckoutDao) session.getAttribute("customerCheckout");
 
         int userId = 1;
