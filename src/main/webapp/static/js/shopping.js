@@ -2,14 +2,14 @@ function addItem(id){
     var req = new XMLHttpRequest();
     req.open('POST', '/?action=add&id=' + id);
     req.send();
-    setTimeout(location.reload.bind(location), 50);
+    setTimeout(location.reload.bind(location), 150);
 }
 
 function removeItem(id){
     var req = new XMLHttpRequest();
     req.open('POST', '/?action=remove&id=' + id);
     req.send();
-    setTimeout(location.reload.bind(location), 50);
+    setTimeout(location.reload.bind(location), 150);
 }
 
 function deleteItem(id){

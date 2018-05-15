@@ -46,7 +46,7 @@
         <li class="cart-card list-group-item d-flex justify-content-between align-items-center">
             <d class="product-info-cart">
                 <img class="group list-group-image product-img-cart" src="http://placehold.it/400x250/000/fff"
-                     th:attr="src='/static/img/product_' + ${prod.key} + '.png'" alt=""/>
+                     th:attr="src='/static/img/product_' + ${prod.key.getId()} + '.png'" alt=""/>
                 <span th:text="${prod.key.getName()}"></span>
                 <span id="price"><strong><span
                         th:text="${prod.value * prod.key.getDefaultPrice + ' ' + prod.key.getDefaultCurrencyString }"></span> (<span
