@@ -94,5 +94,5 @@ create unique index user_id_uindex
 ;
 
 create unique index user_name_uindex
-	on users (name)
+	on users (email)
 ;
