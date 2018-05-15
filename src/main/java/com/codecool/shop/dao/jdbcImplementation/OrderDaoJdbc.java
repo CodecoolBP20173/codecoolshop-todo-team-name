@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class OrderDaoJdbc implements OrderDao {
 
@@ -139,7 +140,7 @@ public class OrderDaoJdbc implements OrderDao {
         PreparedStatement stmt = null;
         int count;
         int productId;
-        Map<Product, Integer> allProducts = new HashMap<>();
+        Map<Product, Integer> allProducts = new LinkedHashMap<>();
 
         String query =
                 "SELECT productid, COUNT(productid) FROM userorder " +
