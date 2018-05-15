@@ -42,17 +42,17 @@
 <div th:replace="nav_bar.html :: header"></div>
 
 <div class="container">
-    <ul class="list-group" th:each="prod,iter : ${products}">
+    <ul class="list-group" th:each="prod : ${products}">
         <li class="cart-card list-group-item d-flex justify-content-between align-items-center">
             <d class="product-info-cart">
                 <img class="group list-group-image product-img-cart" src="http://placehold.it/400x250/000/fff"
-                     th:attr="src='/static/img/product_' + ${prod.id} + '.png'" alt=""/>
+                     th:attr="src='/static/img/product_' + ${prod.key} + '.png'" alt=""/>
                 <span th:text="${prod.getName()}"></span>
                 <span id="price"><strong><span
-                        th:text="${quantities.get(iter.index) * prod.getDefaultPrice + ' ' + prod.getDefaultCurrencyString }"></span> (<span
+                       <!-- th:text="${quantities.get(iter.index) * prod.getDefaultPrice + ' ' + prod.getDefaultCurrencyString }"></span> (<span
                         th:text="${quantities.get(iter.index)}"></span>x<span
-                        th:text="${prod.getPrice()}"></span>)</strong></span>
-            </d>
+                        th:text="${prod.getPrice()}"></span>)</strong></span>-->
+           <!-- </d>-->
             <span class="product-amount-cart">
                 <a th:onclick="'javascript:removeItem(' + ${prod.getId()} + ')'" href="#"
                    class="badge badge-primary badge-pill">-</a>

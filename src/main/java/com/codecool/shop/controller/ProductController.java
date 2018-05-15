@@ -3,12 +3,15 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.jdbcImplementation.OrderDaoJdbc;
+import com.codecool.shop.dao.jdbcImplementation.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.jdbcImplementation.ProductDaoJdbc;
+import com.codecool.shop.dao.jdbcImplementation.SupplierDaoJdbc;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -27,9 +30,9 @@ import java.util.*;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
-    ProductDao productDataStore = ProductDaoMem.getInstance();
-    ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    ProductDao productDataStore = ProductDaoJdbc.getInstance();
+    ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
+    SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,14 +41,14 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         HttpSession session = req.getSession();
-        session.setAttribute("customerOrder", OrderDaoMem.getInstance(session.getId()));
+        session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
         OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
 
         String type = req.getParameter("type");
 
         setContent(req, context, type);
         context.setVariable("recipient", "World");
-        context.setVariable("itemNum", cart.getProductNum());
+        context.setVariable("itemNum", cart.getProductNum(1));
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
@@ -56,18 +59,18 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        session.setAttribute("customerOrder", OrderDaoMem.getInstance(session.getId()));
+        session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
         OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
 
         String action = request.getParameter("action");
         Integer id = Integer.valueOf(request.getParameter("id"));
 
         if ("add".equals(action)) {
-            cart.add(productDataStore.find(id));
+            cart.add(productDataStore.find(id), 1);
         } else if ("remove".equals(action)) {
-            cart.remove(productDataStore.find(id));
+            cart.remove(productDataStore.find(id),1);
         } else if ("delete".equals(action)) {
-            cart.delete(productDataStore.find(id));
+            cart.delete(productDataStore.find(id),1);
         } else {
             super.doPost(request, response);
         }
