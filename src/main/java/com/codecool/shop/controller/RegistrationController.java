@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.jdbcimplementation.Password;
+import com.codecool.shop.dao.jdbcimplementation.RegistrationDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,6 +24,14 @@ public class RegistrationController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        Password.hashPassword(password);
+
+        RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
+        registrationDaoJdbc.add(email, password);
     }
 }
