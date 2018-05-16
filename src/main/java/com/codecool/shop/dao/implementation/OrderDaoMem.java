@@ -1,3 +1,4 @@
+/*
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.OrderDao;
@@ -15,7 +16,6 @@ public class OrderDaoMem implements OrderDao {
     private List<Integer> productNum;
     private List<String> subtotals;
     private static HashMap<String, OrderDaoMem> orders;
-
     OrderDaoMem() {
         cartProducts = new ArrayList<>();
         productNum = new ArrayList<>();
@@ -109,3 +109,4 @@ public class OrderDaoMem implements OrderDao {
         return bd.doubleValue();
     }
 }
+*/
