@@ -73,7 +73,8 @@ public class ProductController extends HttpServlet {
             String hashedPasswordFromDb = "";
             int userId = 0;
             LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
-            hashedPasswordFromDb = loginDaoJdbc.getHashPasswordForEmail(email);
+            hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
+            userId = loginDaoJdbc.getUserIdWithEmail(email);
             if(Password.checkPassword(password,hashedPasswordFromDb)){
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
