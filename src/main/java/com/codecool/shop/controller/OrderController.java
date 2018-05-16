@@ -28,7 +28,7 @@ public class OrderController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("recipient", "World");
-        context.setVariable("products", cart.getAll(1));
+        context.setVariable("products", cart.getAll((int)session.getAttribute("userId")));
         context.setVariable("itemNum", cart.getProductNum(1));
         context.setVariable("sum", cart.getSumOfPrices(1));
         engine.process("product/cart.html", context, resp.getWriter());

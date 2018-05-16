@@ -8,10 +8,7 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.dao.jdbcImplementation.OrderDaoJdbc;
-import com.codecool.shop.dao.jdbcImplementation.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.jdbcImplementation.ProductDaoJdbc;
-import com.codecool.shop.dao.jdbcImplementation.SupplierDaoJdbc;
+import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -58,9 +55,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        HttpSession session = request.getSession();
-        session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
-        OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+        OrderDao cart = OrderDaoJdbc.getInstance();
 
         String action = request.getParameter("action");
         Integer id = Integer.valueOf(request.getParameter("id"));
@@ -73,6 +68,17 @@ public class ProductController extends HttpServlet {
             cart.delete(productDataStore.find(id),1);
         } else {
             super.doPost(request, response);
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String hashedPasswordFromDb = "";
+            int userId = 0;
+            LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
+            hashedPasswordFromDb = loginDaoJdbc.getHashPasswordForEmail(email);
+            if(Password.checkPassword(password,hashedPasswordFromDb)){
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", userId);
+                System.out.println(email);
+            }
         }
     }
 
