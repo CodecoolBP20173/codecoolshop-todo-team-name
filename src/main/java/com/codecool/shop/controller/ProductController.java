@@ -125,11 +125,13 @@ public class ProductController extends HttpServlet {
 
             List<Product> products = productDataStore.getBy(supplier);
             List<ProductCategory> categories = new ArrayList<>();
+            List<String> addedCategoryName = new ArrayList<>();
 
             for (Product product : products) {
                 ProductCategory category = product.getProductCategory();
-                if (!categories.contains(category)) {
+                if (!addedCategoryName.contains(category.getName())) {
                     categories.add(category);
+                    addedCategoryName.add(category.getName());
                 }
             }
             context.setVariable("category", categories);
