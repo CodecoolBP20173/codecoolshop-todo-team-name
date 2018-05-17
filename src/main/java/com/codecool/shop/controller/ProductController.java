@@ -1,13 +1,10 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -22,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
@@ -63,9 +61,9 @@ public class ProductController extends HttpServlet {
         if ("add".equals(action)) {
             cart.add(productDataStore.find(id), 1);
         } else if ("remove".equals(action)) {
-            cart.remove(productDataStore.find(id),1);
+            cart.remove(productDataStore.find(id), 1);
         } else if ("delete".equals(action)) {
-            cart.delete(productDataStore.find(id),1);
+            cart.delete(productDataStore.find(id), 1);
         } else {
             super.doPost(request, response);
             String email = request.getParameter("email");
@@ -75,7 +73,7 @@ public class ProductController extends HttpServlet {
             LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
             hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
             userId = loginDaoJdbc.getUserIdWithEmail(email);
-            if(Password.checkPassword(password,hashedPasswordFromDb)){
+            if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
                 System.out.println(email);
@@ -116,5 +114,15 @@ public class ProductController extends HttpServlet {
             context.setVariable("category", productCategoryDataStore.getAll());
             context.setVariable("products", productDataStore.getAll());
         }
+    }
+
+    private void handleRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        String hashedPassword = Password.hashPassword(password);
+
+        RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
+        registrationDaoJdbc.add(email, hashedPassword);
     }
 }
