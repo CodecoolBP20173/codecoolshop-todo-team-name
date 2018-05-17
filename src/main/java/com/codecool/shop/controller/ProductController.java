@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,6 @@ public class ProductController extends HttpServlet {
     private void handleLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
         String hashedPasswordFromDb = null;
         Integer userId = null;
 
@@ -93,14 +93,20 @@ public class ProductController extends HttpServlet {
         hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
 
         userId = loginDaoJdbc.getUserIdWithEmail(email);
+        if (hashedPasswordFromDb != "") {
 
-        if (hashedPasswordFromDb != null) {
             if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
                 response.sendRedirect("/");
+                response.sendRedirect("/");
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
             }
-        }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
+            }
     }
 
     private void setContent(HttpServletRequest req, WebContext context, String type) {
