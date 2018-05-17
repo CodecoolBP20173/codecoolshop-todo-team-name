@@ -1,12 +1,14 @@
-var check = function() {
-    if (document.getElementById('password').value ==
-        document.getElementById('confirm_password').value) {
-        document.getElementById('message').style.color = 'green';
-        document.getElementById('message').innerHTML = 'matching';
-        document.getElementById('submit').disabled = false;
-    } else {
-        document.getElementById('message').style.color = 'red';
-        document.getElementById('message').innerHTML = 'not matching';
-        document.getElementById('submit').disabled = true;
+function checkForm(form) {
+    return checkPassword(form);
+}
+
+function checkPassword(form) {
+    let password = form.password.valueOf();
+    let confirmPassword = form.repassword.valueOf();
+
+    if (password != confirmPassword) {
+        alert("Invalid e-mail or password");
+        form.password.focus();
+        return false;
     }
 }
