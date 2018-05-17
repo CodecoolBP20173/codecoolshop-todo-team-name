@@ -3,11 +3,11 @@ function checkForm(form) {
 }
 
 function checkPassword(form) {
-    let password = form.password.valueOf();
-    let confirmPassword = form.repassword.valueOf();
+    let password = form.password.value;
+    let confirmPassword = form.repassword.value;
 
     if (password != confirmPassword) {
-        alert("Invalid e-mail or password");
+        alert("Password did not match");
         form.password.focus();
         return false;
     }
