@@ -37,31 +37,36 @@
     <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/hover.css"/>
 </head>
-
 <body>
 
 <div th:replace="title.html :: title"></div>
-<div th:replace="nav_bar.html :: header"></div>
+<div th:replace="nav_bar.html :: navbar"></div>
 
 <div class="container">
     <form action='/checkout' method="POST">
         <h1 id="fill_checkout">Fill the following form with your information please</h1>
+
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" name="name" placeholder="e.g.: John Smith" id="name" class="form-control" required autofocus>
+            <input type="text" name="name" placeholder="e.g.: John Smith" id="name" class="form-control" required
+                   autofocus>
         </div>
+
         <div class="form-group">
             <label for="email">Email address:</label>
             <input type="email" name="email" placeholder="e.g.: john.smith@gmail.com" id="email" class="form-control"
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="something@domain.xx or something@domain.xxx"
                    required>
         </div>
+
         <div class="form-group">
             <label for="telephone">Phone number:</label>
             <input type="text" name="telephone" placeholder="e.g.: 36301234567" pattern="[0-9]{11}"
                    title="11 number after each other like: 36301234567" id="telephone" class="form-control" required>
         </div>
+
         <label for="billing">Billing address:</label>
+
         <div class="form-inline" id="billing">
             <label for="billcountry">Country:</label>
             <input type="text" name="billcountry" placeholder="e.g.: Hungary" id="billcountry" class="form-control"
@@ -76,10 +81,13 @@
             <input type="text" name="billaddress" placeholder="e.g.: Random Street 420" id="billaddress"
                    class="form-control" required>
         </div>
+
         <button type="button" id="copy_button" th:onclick="'javascript:copy()'" class="btn btn-xs btn-default"><span
                 class="glyphicon glyphicon-arrow-down"></span>Copy billing address <span
                 class="glyphicon glyphicon-arrow-down"></span></button>
+
         <label id='shipping_label' for="shipping">Shipping address:</label>
+
         <div class="form-inline" id="shipping">
             <label for="shipcountry">Country:</label>
             <input type="text" name="shipcountry" placeholder="e.g.: Hungary" id="shipcountry" class="form-control"

@@ -1,6 +1,14 @@
 .modal-header, .modal-header h4 {
     background-color: #5cb85c;
-    color:white !important;
+    color: white !important;
     text-align: center;
     font-size: 30px;
+}
+
+.modal-header {
+    padding: 35px 50px;
+}
+
+.modal-body {
+    padding: 40px 50px;
 }

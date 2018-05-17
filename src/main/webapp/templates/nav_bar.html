@@ -5,7 +5,8 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 </head>
 <body>
-<div th:fragment="header">
+
+<div th:fragment="navbar">
     <div class="">
         <nav class="navbar nav-bg-color">
             <div class="navbar-header">
@@ -41,60 +42,29 @@
                         </ul>
                     </li>
                 </ul>
+
                 <ul t="${itemNum != null}" class="nav navbar-nav navbar-right">
-                        <li th:if=" ${session.userId!=null}">
-                            <a class="hvr-shrink" href="/logout">
-                                Logout
-                            </a>
-                        </li>
-                        <li th:if="${session.userId==null}">
-                            <a id="registration_button" class="hvr-shrink" data-toggle="modal"
+                    <li th:if=" ${session.userId!=null}">
+                        <a class="hvr-shrink" href="/logout">
+                            Logout
+                        </a>
+                    </li>
+
+                    <li th:if="${session.userId==null}">
+                        <a id="registration_button" class="hvr-shrink" data-toggle="modal"
                            data-target="#registrationModal">
-                                Registration
-                            </a>
+                            Registration
+                        </a>
                         <div th:replace="registration_modal.html :: modal"></div>
-                        </li>
-                        <li th:if="${session.userId==null}">
-                            <!-- Button to Open the Modal -->
-                            <a id="login_button" class="hvr-shrink" data-toggle="modal" data-target="#myModal">
-                                Login
-                            </a>
+                    </li>
 
-                            <!-- The Modal -->
-                            <div class="modal" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                    <li th:if="${session.userId==null}">
+                        <a id="login_button" class="hvr-shrink" data-toggle="modal" data-target="#loginModal">
+                            Login
+                        </a>
+                        <div th:replace="login_modal.html :: modal"></div>
+                    </li>
 
-                                    <div class="modal-content">
-                                        <div class="modal-header" style="padding:35px 50px;">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
-                                        </div>
-                                        <div class="modal-body" style="padding:40px 50px;">
-                                            <form role="form"method="post" th:action="@{/}">
-                                                <div class="form-group">
-                                                    <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
-                                                    <input type="text" class="form-control" id="usrname" placeholder="Enter email"
-                                                               name="email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                                                    <input type="text" class="form-control" id="psw" placeholder="Enter password"
-                                                               name="password">
-                                                </div>
-                                                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                                            <p>Not a member? <a href="/registration">Sign Up</a></p>
-                                        </div>
-                                    </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                     <li th:if=" ${session.userId!=null}">
                         <div class="cart-text">
                             <span th:text="${itemNum}"></span>

@@ -2,62 +2,58 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="modal" class="modal" id="registrationModal">
-    <div class="modal-dialog">
+<div th:fragment="modal" class="modal" id="loginModal">
+    <div class="modal-dialog">`
         <div class="modal-content">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4><span class="glyphicon glyphicon-lock"></span> Registration</h4>
+                    <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
 
                 <div class="modal-body">
                     <form role="form" method="post" th:action="@{/}">
                         <div class="form-group">
-                            <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span>
+                                Email
+                            </label>
                             <input type="email"
                                    class="form-control"
-                                   id="email"
-                                   name="email"
+                                   id="usrname"
                                    placeholder="Enter email"
+                                   name="email"
                                    required>
                         </div>
                         <div class="form-group">
-                            <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                            <label for="psw"><span class="glyphicon glyphicon-eye-open"></span>
+                                Password
+                            </label>
                             <input type="password"
                                    class="form-control"
                                    id="psw"
-                                   name="password"
                                    placeholder="Enter password"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="repsw"><span class="glyphicon glyphicon-eye-open"></span>
-                                Confirm Password</label>
-                            <input type="password"
-                                   class="form-control"
-                                   id="repsw"
-                                   placeholder="Enter password again"
-                                   name="repassword"
+                                   name="password"
                                    required>
                         </div>
                         <button type="submit" class="btn btn-success btn-block"><span
-                                class="glyphicon glyphicon-plus"></span> Registration
+                                class="glyphicon glyphicon-off"></span> Login
                         </button>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span
+                    <button type="submit" class="btn btn-danger btn-default pull-left"
+                            data-dismiss="modal"><span
                             class="glyphicon glyphicon-remove"></span> Cancel
                     </button>
+                    <p>Not a member? <a href="/registration">Sign Up</a></p>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

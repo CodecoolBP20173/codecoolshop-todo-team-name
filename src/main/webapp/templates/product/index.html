@@ -39,11 +39,10 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
 </head>
-
 <body>
 
 <div th:replace="title.html :: title"></div>
-<div th:replace="nav_bar.html :: header"></div>
+<div th:replace="nav_bar.html :: navbar"></div>
 
 <div class="container" th:each="cat,iterStat : ${category}">
     <div class="well well-sm">
