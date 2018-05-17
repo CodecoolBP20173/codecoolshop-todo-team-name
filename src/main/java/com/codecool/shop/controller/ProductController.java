@@ -80,15 +80,17 @@ public class ProductController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String hashedPasswordFromDb = null;
-        int userId = 0;
+        Integer userId = null;
+
         LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
         hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
+
         userId = loginDaoJdbc.getUserIdWithEmail(email);
         if (hashedPasswordFromDb != "") {
+
             if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
-                System.out.println(email);
                 response.sendRedirect("/");
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
@@ -96,8 +98,7 @@ public class ProductController extends HttpServlet {
 
         } else {
             JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
-        }
-
+            }
     }
 
     private void setContent(HttpServletRequest req, WebContext context, String type) {
