@@ -33,7 +33,7 @@ html body {
     font-size: 1.6em;
 }
 
-#login_button, #registration_button {
+#login_button, #registration_button, #logout_button{
     cursor: pointer;
     color: black;
 }

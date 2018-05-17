@@ -39,7 +39,7 @@
 <body>
 
 <div th:replace="title.html :: title"></div>
-<div th:replace="nav_bar.html :: header"></div>
+<div th:replace="nav_bar.html :: navbar"></div>
 
 <div class="container">
     <ul class="list-group" th:each="prod : ${products}">
@@ -65,10 +65,12 @@
 
         </li>
     </ul>
+
     <div th:if="${sum != '0.0 CC'}">
         <h3>Total Price: <span th:text="${sum}"></spanth:text></span></h3>
         <a href="/checkout" class="btn btn-success" role="button">Proceed to Checkout</a>
     </div>
+
     <div th:if="${sum == '0.0 CC'}">
         <h3>Your Shopping Cart is empty.</h3>
     </div>

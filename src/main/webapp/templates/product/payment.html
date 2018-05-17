@@ -36,11 +36,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
           integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
-
 <body>
 
 <div th:replace="title.html :: title"></div>
-<div th:replace="nav_bar.html :: header"></div>
+<div th:replace="nav_bar.html :: navbar"></div>
 
 <div class="container-fluid">
     <!--Credit Card Payment-->
@@ -66,6 +65,7 @@
                                         <label for="cardHolder">CARD HOLDER</label>
                                         <div class="input-group">
                                             <input
+                                                    id="cardHolder"
                                                     type="tel"
                                                     class="form-control"
                                                     name="cardHolder"
@@ -83,6 +83,7 @@
                                         <label for="cardNumber">CARD NUMBER</label>
                                         <div class="input-group">
                                             <input
+                                                    id="cardNumber"
                                                     type="tel"
                                                     class="form-control"
                                                     name="cardNumber"
@@ -100,6 +101,7 @@
                                         <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span
                                                 class="visible-xs-inline">EXP</span> DATE</label>
                                         <input
+                                                id="cardExpiry"
                                                 type="tel"
                                                 class="form-control"
                                                 name="cardExpiry"
@@ -113,6 +115,7 @@
                                     <div class="form-group">
                                         <label for="cardCVC">CV CODE</label>
                                         <input
+                                                id="cardCVC"
                                                 type="password"
                                                 class="form-control"
                                                 name="cardCVC"
@@ -139,6 +142,7 @@
             </div>
         </div>
     </div>
+
     <!--End Credit Card Payment-->
     <div id="paying-paypal" class="col-sm-6">
         <h1>PayPal</h1>
@@ -162,6 +166,7 @@
                                         <label for="paypalEmail">EMAIL</label>
                                         <div class="input-group">
                                             <input
+                                                    id="paypalEmail"
                                                     type="tel"
                                                     class="form-control"
                                                     name="paypalEmail"
@@ -178,6 +183,7 @@
                                     <div class="form-group">
                                         <label for="paypalPassW"><span class="hidden-xs">PASSWORD</span></label>
                                         <input
+                                                id="paypalPassW"
                                                 type="password"
                                                 class="form-control"
                                                 name="paypalPassW"
