@@ -5,6 +5,10 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -98,8 +102,6 @@ public class ProductController extends HttpServlet {
             if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
-                response.sendRedirect("/");
-                response.sendRedirect("/");
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
             }
@@ -107,6 +109,7 @@ public class ProductController extends HttpServlet {
         } else {
             JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
             }
+        response.sendRedirect("/");
     }
 
     private void setContent(HttpServletRequest req, WebContext context, String type) {
@@ -142,5 +145,15 @@ public class ProductController extends HttpServlet {
             context.setVariable("category", productCategoryDataStore.getAll());
             context.setVariable("products", productDataStore.getAll());
         }
+    }
+
+    private void handleRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        String hashedPassword = Password.hashPassword(password);
+
+        RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
+        registrationDaoJdbc.add(email, hashedPassword);
     }
 }
