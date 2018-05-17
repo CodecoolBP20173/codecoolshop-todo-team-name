@@ -43,9 +43,11 @@
                 </ul>
                 <ul t="${itemNum != null}" class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="dropdown-toggle drop-li-a hvr-shrink" href="/registration">
+                        <a id="registration_button" class="hvr-shrink" data-toggle="modal"
+                           data-target="#registrationModal">
                             Registration
                         </a>
+                        <div th:replace="registration_modal.html :: modal"></div>
                     </li>
                     <li>
                         <!-- Button to Open the Modal -->
@@ -66,18 +68,27 @@
                                         <div class="modal-body" style="padding:40px 50px;">
                                             <form role="form">
                                                 <div class="form-group">
-                                                    <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                                                    <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                                                    <label for="usrname"><span class="glyphicon glyphicon-user"></span>
+                                                        Username</label>
+                                                    <input type="text" class="form-control" id="usrname"
+                                                           placeholder="Enter email">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                                                    <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                                                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span>
+                                                        Password</label>
+                                                    <input type="text" class="form-control" id="psw"
+                                                           placeholder="Enter password">
                                                 </div>
-                                                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                                                <button type="submit" class="btn btn-success btn-block"><span
+                                                        class="glyphicon glyphicon-off"></span> Login
+                                                </button>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                            <button type="submit" class="btn btn-danger btn-default pull-left"
+                                                    data-dismiss="modal"><span
+                                                    class="glyphicon glyphicon-remove"></span> Cancel
+                                            </button>
                                             <p>Not a member? <a href="/registration">Sign Up</a></p>
                                         </div>
                                     </div>
