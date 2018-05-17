@@ -14,17 +14,19 @@
                 <div class="modal-body">
                     <form role="form" method="post" th:action="@{/}">
                         <div class="form-group">
-                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                            <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                            <label for="email"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                            <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                            <input type="text" class="form-control" id="psw" name="password"
+                                   placeholder="Enter password">
                         </div>
                         <div class="form-group">
                             <label for="repsw"><span class="glyphicon glyphicon-eye-open"></span> Confirm
                                 Password</label>
-                            <input type="text" class="form-control" id="repsw" placeholder="Enter password again">
+                            <input type="text" class="form-control" id="repsw" placeholder="Enter password again"
+                                   name="repassword">
                         </div>
                         <button type="submit" class="btn btn-success btn-block"><span
                                 class="glyphicon glyphicon-plus"></span> Registration
