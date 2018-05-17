@@ -5,10 +5,6 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -49,7 +45,7 @@ public class ProductController extends HttpServlet {
         setContent(req, context, type);
         context.setVariable("recipient", "World");
         Integer userId = (Integer) session.getAttribute("userId");
-        if ( userId != null) {
+        if (userId != null) {
             context.setVariable("itemNum", cart.getProductNum(userId));
         }
         context.setVariable("categories", productCategoryDataStore.getAll());
@@ -82,6 +78,8 @@ public class ProductController extends HttpServlet {
             cart.remove(productDataStore.find(id), userId);
         } else if ("delete".equals(action)) {
             cart.delete(productDataStore.find(id), userId);
+        } else if (request.getParameter("repassword") != null) {
+            handleRegistration(request, response);
         } else {
             handleLogIn(request, response);
         }
@@ -98,17 +96,15 @@ public class ProductController extends HttpServlet {
 
         userId = loginDaoJdbc.getUserIdWithEmail(email);
         if (hashedPasswordFromDb != "") {
-
             if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Invalid e-mail or password");
-            }
+        }
         response.sendRedirect("/");
     }
 
@@ -155,5 +151,7 @@ public class ProductController extends HttpServlet {
 
         RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
         registrationDaoJdbc.add(email, hashedPassword);
+
+        response.sendRedirect("/");
     }
 }
