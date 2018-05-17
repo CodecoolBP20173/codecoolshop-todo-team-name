@@ -43,13 +43,7 @@
                     </li>
                 </ul>
 
-                <ul t="${itemNum != null}" class="nav navbar-nav navbar-right">
-                    <li th:if=" ${session.userId!=null}">
-                        <a class="hvr-shrink" href="/logout">
-                            Logout
-                        </a>
-                    </li>
-
+                <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.userId==null}">
                         <a id="registration_button" class="hvr-shrink" data-toggle="modal"
                            data-target="#registrationModal">
@@ -69,11 +63,17 @@
                         <div class="cart-text">
                             <span th:text="${itemNum}"></span>
                         </div>
-                        <div class="cart-icon hvr-bob">
+                        <div class="cart-icon">
                             <a href="/cart">
-                                <img id="cart" src="/static/img/cart.png" alt="">
+                                <img id="cart" class="hvr-bob" src="/static/img/cart.png" alt="">
                             </a>
                         </div>
+                    </li>
+
+                    <li th:if=" ${session.userId!=null}">
+                        <a id="logout_button" class="hvr-shrink" href="/logout">
+                            Logout
+                        </a>
                     </li>
                 </ul>
             </div>
