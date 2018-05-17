@@ -78,15 +78,21 @@ public class ProductController extends HttpServlet {
     private void handleLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String hashedPasswordFromDb = "";
-        int userId = 0;
+
+        String hashedPasswordFromDb = null;
+        Integer userId = null;
+
         LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
         hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
+
         userId = loginDaoJdbc.getUserIdWithEmail(email);
-        if (Password.checkPassword(password, hashedPasswordFromDb)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userId", userId);
-            System.out.println(email);
+
+        if (hashedPasswordFromDb != null) {
+            if (Password.checkPassword(password, hashedPasswordFromDb)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", userId);
+                System.out.println(email);
+            }
         }
     }
 
