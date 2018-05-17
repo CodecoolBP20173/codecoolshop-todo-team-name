@@ -23,7 +23,7 @@ public class LoginDaoJdbc {
         PreparedStatement stmt = null;
         String hashedPassword = "";
 
-        String query = "SELECT password, FROM users WHERE email=?";
+        String query = "SELECT password FROM users WHERE email=?";
 
         try {
             connection = ConnectionManager.getConnection();

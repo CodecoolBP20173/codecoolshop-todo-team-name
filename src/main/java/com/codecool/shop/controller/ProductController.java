@@ -67,16 +67,15 @@ public class ProductController extends HttpServlet {
         if ("add".equals(action)) {
             cart.add(productDataStore.find(id), 1);
         } else if ("remove".equals(action)) {
-            cart.remove(productDataStore.find(id),1);
+            cart.remove(productDataStore.find(id), 1);
         } else if ("delete".equals(action)) {
-            cart.delete(productDataStore.find(id),1);
+            cart.delete(productDataStore.find(id), 1);
         } else {
             handleLogIn(request, response);
         }
     }
 
     private void handleLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response);
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String hashedPasswordFromDb = "";
@@ -84,7 +83,7 @@ public class ProductController extends HttpServlet {
         LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
         hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
         userId = loginDaoJdbc.getUserIdWithEmail(email);
-        if(Password.checkPassword(password,hashedPasswordFromDb)){
+        if (Password.checkPassword(password, hashedPasswordFromDb)) {
             HttpSession session = request.getSession();
             session.setAttribute("userId", userId);
             System.out.println(email);
