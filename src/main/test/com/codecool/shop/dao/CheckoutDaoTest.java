@@ -1,6 +1,5 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.dao.implementation.CheckoutDaoMem;
 import com.codecool.shop.model.Checkout;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

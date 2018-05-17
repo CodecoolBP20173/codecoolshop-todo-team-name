@@ -1,9 +1,9 @@
-package com.codecool.shop.dao.jdbcImplementation;
+package com.codecool.shop.dao;
 
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class Password {
+public class PasswordManager {
 
     private static int workload = 12;
 

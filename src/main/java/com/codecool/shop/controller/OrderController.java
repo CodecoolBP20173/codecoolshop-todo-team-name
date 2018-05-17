@@ -1,8 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.OrderDao;
-
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.jdbcImplementation.OrderDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -22,14 +21,13 @@ public class OrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
-        OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+        OrderDao cart = OrderDaoJdbc.getInstance();
         Integer userId = (Integer) session.getAttribute("userId");
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("recipient", "World");
-        context.setVariable("products", cart.getAll((int)session.getAttribute("userId")));
+        context.setVariable("products", cart.getAll(userId));
         context.setVariable("itemNum", cart.getProductNum(userId));
         context.setVariable("sum", cart.getSumOfPrices(userId));
         engine.process("product/cart.html", context, resp.getWriter());

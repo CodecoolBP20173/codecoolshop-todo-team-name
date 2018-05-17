@@ -2,7 +2,6 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CheckoutDao;
-import com.codecool.shop.dao.implementation.CheckoutDaoMem;
 import com.codecool.shop.dao.jdbcImplementation.CheckoutDaoJdbc;
 import com.codecool.shop.model.Checkout;
 import org.thymeleaf.TemplateEngine;
@@ -19,6 +18,8 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
 
+    private HttpSession session;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -28,11 +29,12 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         session.setAttribute("customerCheckout", CheckoutDaoJdbc.getInstance());
         CheckoutDao checkoutList = (CheckoutDao) session.getAttribute("customerCheckout");
-
         Integer userId = (Integer) session.getAttribute("userId");
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("telephone");

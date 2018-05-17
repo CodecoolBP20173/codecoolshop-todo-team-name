@@ -1,10 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -29,6 +26,7 @@ public class ProductController extends HttpServlet {
     ProductDao productDataStore = ProductDaoJdbc.getInstance();
     ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
     SupplierDao supplierDataStore = SupplierDaoJdbc.getInstance();
+    OrderDao cart = OrderDaoJdbc.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,17 +35,16 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         HttpSession session = req.getSession();
-        session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
-        OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+        Integer userId = (Integer) session.getAttribute("userId");
 
         String type = req.getParameter("type");
 
-        setContent(req, context, type);
-        context.setVariable("recipient", "World");
-        Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
             context.setVariable("itemNum", cart.getProductNum(userId));
         }
+
+        setContent(req, context, type);
+        context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
@@ -57,20 +54,20 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        OrderDao cart = OrderDaoJdbc.getInstance();
-
         handleRequest(request, response, cart);
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response, OrderDao cart) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        Integer id = null;
-        if (action != null) {
-            id = Integer.valueOf(request.getParameter("id"));
-        }
 
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
+
+        String action = request.getParameter("action");
+        Integer id = null;
+
+        if (action != null) {
+            id = Integer.valueOf(request.getParameter("id"));
+        }
 
         if ("add".equals(action)) {
             cart.add(productDataStore.find(id), userId);
@@ -95,8 +92,9 @@ public class ProductController extends HttpServlet {
         hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
 
         userId = loginDaoJdbc.getUserIdWithEmail(email);
+
         if (hashedPasswordFromDb != "") {
-            if (Password.checkPassword(password, hashedPasswordFromDb)) {
+            if (PasswordManager.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
             } else {
@@ -144,10 +142,11 @@ public class ProductController extends HttpServlet {
     }
 
     private void handleRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        String hashedPassword = Password.hashPassword(password);
+        String hashedPassword = PasswordManager.hashPassword(password);
 
         RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
         registrationDaoJdbc.add(email, hashedPassword);

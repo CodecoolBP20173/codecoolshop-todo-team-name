@@ -21,12 +21,12 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
     public List<Product> getProducts() {
         return this.products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
     public void addProduct(Product product) {
