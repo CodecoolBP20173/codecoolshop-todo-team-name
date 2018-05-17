@@ -28,7 +28,7 @@
             integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
             crossorigin="anonymous"></script>
 
-    <script src="/static/js/checkout.js"></script>
+    <script src="/static/js/confirmpw.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Signika:400,600" rel="stylesheet">
 
@@ -49,16 +49,17 @@
     <label>
         E-mail:
     </label>
-    <input name="email">
-    <label>
-        Password:
+    <input required name="email">
+    <br>
+    <label>Password:
+        <input id="password" type="password" name="password" onkeyup='check();'/>
     </label>
-    <input type="password" name="password">
-    <label>
-        Confirm Password:
+    <br>
+    <label>Confirm Password:
+        <input id="confirm_password" name="confirm_password" type="password" onkeyup='check();'/>
+        <span id="message"></span>
     </label>
-    <input name="repassword" type="password">
-    <button type="submit">Submit</button>
+    <button id="submit" type="submit" value="registration" disabled>Submit</button>
 </form>
 </body>
 </html>
