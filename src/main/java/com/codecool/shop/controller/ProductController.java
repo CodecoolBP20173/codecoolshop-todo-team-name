@@ -1,13 +1,10 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.dao.jdbcImplementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -22,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
@@ -57,9 +55,15 @@ public class ProductController extends HttpServlet {
 
         OrderDao cart = OrderDaoJdbc.getInstance();
 
-        String action = request.getParameter("action");
-        Integer id = Integer.valueOf(request.getParameter("id"));
+        handleRequest(request, response, cart);
+    }
 
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response, OrderDao cart) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        Integer id = null;
+        if (action != null) {
+            id = Integer.valueOf(request.getParameter("id"));
+        }
         if ("add".equals(action)) {
             cart.add(productDataStore.find(id), 1);
         } else if ("remove".equals(action)) {
@@ -67,19 +71,23 @@ public class ProductController extends HttpServlet {
         } else if ("delete".equals(action)) {
             cart.delete(productDataStore.find(id),1);
         } else {
-            super.doPost(request, response);
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String hashedPasswordFromDb = "";
-            int userId = 0;
-            LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
-            hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
-            userId = loginDaoJdbc.getUserIdWithEmail(email);
-            if(Password.checkPassword(password,hashedPasswordFromDb)){
-                HttpSession session = request.getSession();
-                session.setAttribute("userId", userId);
-                System.out.println(email);
-            }
+            handleLogIn(request, response);
+        }
+    }
+
+    private void handleLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doPost(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String hashedPasswordFromDb = "";
+        int userId = 0;
+        LoginDaoJdbc loginDaoJdbc = LoginDaoJdbc.getInstance();
+        hashedPasswordFromDb = loginDaoJdbc.getHashPasswordWithEmail(email);
+        userId = loginDaoJdbc.getUserIdWithEmail(email);
+        if(Password.checkPassword(password,hashedPasswordFromDb)){
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", userId);
+            System.out.println(email);
         }
     }
 
