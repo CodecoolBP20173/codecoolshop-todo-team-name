@@ -32,7 +32,7 @@ public class CheckoutController extends HttpServlet {
         session.setAttribute("customerCheckout", CheckoutDaoJdbc.getInstance());
         CheckoutDao checkoutList = (CheckoutDao) session.getAttribute("customerCheckout");
 
-        int userId = 1;
+        Integer userId = (Integer) session.getAttribute("userId");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("telephone");

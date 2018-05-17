@@ -24,13 +24,14 @@ public class OrderController extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("customerOrder", OrderDaoJdbc.getInstance());
         OrderDao cart = (OrderDao) session.getAttribute("customerOrder");
+        Integer userId = (Integer) session.getAttribute("userId");
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("recipient", "World");
         context.setVariable("products", cart.getAll((int)session.getAttribute("userId")));
-        context.setVariable("itemNum", cart.getProductNum(1));
-        context.setVariable("sum", cart.getSumOfPrices(1));
+        context.setVariable("itemNum", cart.getProductNum(userId));
+        context.setVariable("sum", cart.getSumOfPrices(userId));
         engine.process("product/cart.html", context, resp.getWriter());
     }
 }

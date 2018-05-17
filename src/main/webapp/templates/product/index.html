@@ -64,7 +64,7 @@
                                 <div class="col-xs-12 col-md-6">
                                     <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                                 </div>
-                                <div class="col-xs-12 col-md-6">
+                                <div th:if=" ${session.userId!=null}" class="col-xs-12 col-md-6">
                                     <button th:onclick="'javascript:addItem(' + ${prod.getId()} + ')'"
                                             class="btn btn-success"
                                             href="#">Add to cart
