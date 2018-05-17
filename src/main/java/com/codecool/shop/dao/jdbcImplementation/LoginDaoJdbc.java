@@ -49,7 +49,7 @@ public class LoginDaoJdbc {
         PreparedStatement stmt = null;
         int userId = 0;
 
-        String query = "SELECT id, FROM users WHERE email=?";
+        String query = "SELECT id FROM users WHERE email=?";
 
         try {
             connection = ConnectionManager.getConnection();

@@ -43,7 +43,10 @@ public class ProductController extends HttpServlet {
 
         setContent(req, context, type);
         context.setVariable("recipient", "World");
-        context.setVariable("itemNum", cart.getProductNum(1));
+        Integer userId = (Integer) session.getAttribute("userId");
+        if ( userId != null) {
+            context.setVariable("itemNum", cart.getProductNum(userId));
+        }
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
@@ -64,12 +67,16 @@ public class ProductController extends HttpServlet {
         if (action != null) {
             id = Integer.valueOf(request.getParameter("id"));
         }
+
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
         if ("add".equals(action)) {
-            cart.add(productDataStore.find(id), 1);
+            cart.add(productDataStore.find(id), userId);
         } else if ("remove".equals(action)) {
-            cart.remove(productDataStore.find(id), 1);
+            cart.remove(productDataStore.find(id), userId);
         } else if ("delete".equals(action)) {
-            cart.delete(productDataStore.find(id), 1);
+            cart.delete(productDataStore.find(id), userId);
         } else {
             handleLogIn(request, response);
         }
@@ -91,7 +98,7 @@ public class ProductController extends HttpServlet {
             if (Password.checkPassword(password, hashedPasswordFromDb)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId);
-                System.out.println(email);
+                response.sendRedirect("/");
             }
         }
     }
