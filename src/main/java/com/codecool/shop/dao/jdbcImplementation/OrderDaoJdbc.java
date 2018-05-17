@@ -8,9 +8,8 @@ import com.codecool.shop.model.Supplier;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class OrderDaoJdbc implements OrderDao {
 
