@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form" method="post" th:action="@{/}">
+                    <form role="form" method="post" th:action="@{/}" onsubmit="return checkForm(this)">
                         <div class="form-group">
                             <label for="email"><span class="glyphicon glyphicon-user"></span> Email</label>
                             <input type="email"
