@@ -32,3 +32,8 @@ html body {
     font-family: 'PT Sans Narrow', sans-serif;
     font-size: 1.6em;
 }
+
+#login_button {
+    cursor: pointer;
+    color: black;
+}
