@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class OrderDaoJdbc implements OrderDao {
 
     private static OrderDaoJdbc instance;
@@ -42,21 +44,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
@@ -79,21 +67,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
@@ -116,21 +90,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
@@ -163,21 +123,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
     }
@@ -241,21 +187,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
 
@@ -294,21 +226,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
 
@@ -348,21 +266,7 @@ public class OrderDaoJdbc implements OrderDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.print(e.getMessage());
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
 

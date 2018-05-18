@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static SupplierDaoJdbc instance = null;
@@ -37,21 +39,7 @@ public class SupplierDaoJdbc implements SupplierDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeStatementAndConnection(connection, stmt);
         }
 
     }
@@ -78,21 +66,7 @@ public class SupplierDaoJdbc implements SupplierDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         Supplier supplier = new Supplier(supplierName, supplierDescription);
         supplier.setId(supplierId);
@@ -114,21 +88,7 @@ public class SupplierDaoJdbc implements SupplierDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
@@ -137,10 +97,13 @@ public class SupplierDaoJdbc implements SupplierDao {
         String query = "SELECT * FROM supplier;";
         List<Supplier> resultList = new ArrayList<>();
 
-        try (Connection connection = ConnectionManager.getConnection();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {connection = ConnectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
-        ) {
+         
             while (resultSet.next()) {
                 Supplier supplier = new Supplier(resultSet.getString("name"),
                         resultSet.getString("description"));
@@ -149,6 +112,8 @@ public class SupplierDaoJdbc implements SupplierDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeStatementAndConnection(connection, stmt);
         }
 
         return resultList;

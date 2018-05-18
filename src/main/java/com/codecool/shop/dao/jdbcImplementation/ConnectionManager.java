@@ -1,8 +1,6 @@
 package com.codecool.shop.dao.jdbcImplementation;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ConnectionManager {
 
@@ -18,14 +16,21 @@ public class ConnectionManager {
                 DB_PASSWORD);
     }
 
-    public void executeQuery(String query) {
-        try (java.sql.Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-        ) {
-            statement.execute(query);
+    public static void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+        }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
         }
     }
 

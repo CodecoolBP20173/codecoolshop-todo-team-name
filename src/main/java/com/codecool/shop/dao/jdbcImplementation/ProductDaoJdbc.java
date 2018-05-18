@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class ProductDaoJdbc implements ProductDao {
 
     private static ProductDaoJdbc instance = null;
@@ -301,21 +303,5 @@ public class ProductDaoJdbc implements ProductDao {
         return filteredProducts;
     }
 
-    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
-        try {
-            if (stmt != null) {
-                stmt.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
 
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
-    }
 }
