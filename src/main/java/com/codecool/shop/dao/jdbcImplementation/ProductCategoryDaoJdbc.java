@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     private static ProductCategoryDaoJdbc instance = null;
@@ -45,21 +47,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
 
     }
@@ -94,21 +82,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
     }
@@ -132,21 +106,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
@@ -183,21 +143,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             System.out.print(e.getMessage());
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-
-            }
+            closeStatementAndConnection(connection, stmt);
         }
         return null;
     }

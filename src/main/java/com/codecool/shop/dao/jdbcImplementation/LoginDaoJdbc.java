@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class LoginDaoJdbc {
 
     private static LoginDaoJdbc instance = null;
@@ -67,24 +69,5 @@ public class LoginDaoJdbc {
             closeStatementAndConnection(connection, stmt);
         }
         return userId;
-    }
-
-
-    private void closeStatementAndConnection(Connection connection, PreparedStatement stmt) {
-        try {
-            if (stmt != null) {
-                stmt.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
-
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (Exception e) {
-            System.out.printf(e.getMessage());
-        }
     }
 }

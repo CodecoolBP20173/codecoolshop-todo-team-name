@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codecool.shop.dao.jdbcImplementation.ConnectionManager.closeStatementAndConnection;
+
 public class CheckoutDaoJdbc implements CheckoutDao {
 
     private static CheckoutDaoJdbc instance = null;
@@ -45,32 +47,23 @@ public class CheckoutDaoJdbc implements CheckoutDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeStatementAndConnection(connection, stmt);
         }
     }
 
     public List<Checkout> getAll() {
+
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
         String query = "SELECT * FROM checkout;";
         List<Checkout> resultList = new ArrayList<>();
 
-        try (Connection connection = ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
-        ) {
+        try {
+            connection = ConnectionManager.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
             while (resultSet.next()) {
                 Checkout checkout = new Checkout(resultSet.getInt("userid"),
                         resultSet.getString("name"),
@@ -88,6 +81,8 @@ public class CheckoutDaoJdbc implements CheckoutDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeStatementAndConnection(connection, stmt);
         }
 
         return resultList;
