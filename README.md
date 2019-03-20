@@ -1,6 +1,5 @@
 # Codecool Online Shop
 
-Java SE: 4th TW week, Project skeleton
 
 # Install
 
